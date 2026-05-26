@@ -1,147 +1,44 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Rutas</title>
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
-<style>
-
-body{
-    background:#0f172a;
-    color:white;
-    font-family:Arial;
-    margin:0;
-    padding:30px;
-}
-body{
-    background-image: url('./carro.jpeg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-
-    color:white;
-    font-family:Arial;
-    margin:0;
-    padding:30px;
-
-    position: relative;
-}
-body::before{
-    content:"";
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background: rgba(0,0,0,0.45);
-    z-index:-1;
-}
-
-/* TITULO */
-.titulo{
-    text-align:center;
-    font-size:40px;
-    margin-bottom:20px;
-}
-
-/* IMAGEN */
-.img-vuelta{
-    width:90%;
-    max-width:650px;
-    display:block;
-    margin:20px auto;
-    border-radius:15px;
-}
-
-/* CONTENEDOR BOTONES ESQUINA */
-.botones-maps{
-    display:flex;
-    justify-content:space-between;
-    margin:20px 40px;
-}
-
-/* BOTONES */
-.btn-maps{
-    padding:10px 15px;
-    border-radius:10px;
-    color:white;
-    text-decoration:none;
-    font-weight:bold;
-    transition:0.3s;
-}
-
-.izq{
-    background:#22c55e;
-}
-
-.der{
-    background:#38bdf8;
-}
-
-.btn-maps:hover{
-    transform:scale(1.05);
-}
-
-/* VOLVER */
-.volver{
-    text-align:center;
-    margin-top:30px;
-}
-
-.btn-volver{
-    background:#f97316;
-    padding:10px 18px;
-    color:white;
-    text-decoration:none;
-    border-radius:10px;
-    font-weight:bold;
-    transition:0.3s;
-}
-
-.btn-volver:hover{
-    background:#ea580c;
-    transform:translateX(-5px);
-}
-
-</style>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rutas</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="./css/styles.css"> 
 </head>
 
-<body>
+<body class="body-rutas">
 
-<div class="titulo">🚐 RUTA DE VUELTA</div>
+    <div id="pantalla-rutas">
+        <div class="titulo">🚐 RUTA DE VUELTA</div>
 
-<!-- IMAGEN -->
-<img src="./vuelta.jpeg" class="img-vuelta" alt="Ruta">
+        <!-- IMAGEN -->
+        <img src="./imagenes/vuelta.jpeg" class="img-vuelta" alt="Ruta">   
 
-<!-- BOTONES ESQUINA -->
-<div class="botones-maps">
+        <!-- BOTONES ESQUINA -->
+        <div class="botones-maps">
 
-    <!-- BAJADA -->
-    <a href="https://www.google.com/maps/dir/AGRUP.+FAMILIAR+-+NUEVA+LUZ,+3X6Q%2BG52,+Agrupaci%C3%B3n+Familiar+Nueva+Luz,+San+Juan+de+Lurigancho+15453/-11.9583871,-76.9866878/@-11.9498872,-76.9926709,15.75z/data=!4m9!4m8!1m5!1m1!1s0x9105d1005152ff35:0x13f8bb672a375b3!2m2!1d-77.012115!2d-11.9387494!1m0!3e0"
-       target="_blank" class="btn-maps izq">
-        <i class="fa-solid fa-location-dot"></i> Bajada
-    </a>
+            <!-- BAJADA -->
+            <a href="https://www.google.com/maps/dir/AGRUP.+FAMILIAR+-+NUEVA+LUZ,+3X6Q%2BG52,+Agrupaci%C3%B3n+Familiar+Nueva+Luz,+San+Juan+de+Lurigancho+15453/-11.9583871,-76.9866878/@-11.9498872,-76.9926709,15.75z/data=!4m9!4m8!1m5!1m1!1s0x9105d1005152ff35:0x13f8bb672a375b3!2m2!1d-77.012115!2d-11.9387494!1m0!3e0" target="_blank" class="btn-maps izq">
+                <i class="fa-solid fa-location-dot"></i> Bajada
+            </a>
 
-    <!-- SUBIDA -->
-    <a href="https://www.google.com/maps/dir/-11.9597969,-76.9876923/AGRUP.+FAMILIAR+-+NUEVA+LUZ,+3X6Q%2BG52,+Agrupaci%C3%B3n+Familiar+Nueva+Luz,+San+Juan+de+Lurigancho+15453,+Per%C3%BA/@-11.9500758,-77.0023885,15.5z/data=!4m14!4m13!1m5!3m4!1m2!1d-76.9911339!2d-11.9551037!3s0x9105c54963dc7055:0xcdc5947f2dda60a5!1m5!1m1!1s0x9105d1005152ff35:0x13f8bb672a375b3!2m2!1d-77.012115!2d-11.9387494!3e0"
-       target="_blank" class="btn-maps der">
-        <i class="fa-solid fa-route"></i> Subida
-    </a>
+            <!-- SUBIDA -->
+            <a href="https://www.google.com/maps/dir/-11.9597969,-76.9876923/AGRUP.+FAMILIAR+-+NUEVA+LUZ,+3X6Q%2BG52,+Agrupaci%C3%B3n+Familiar+Nueva+Luz,+San+Juan+de+Lurigancho+15453,+Per%C3%BA/@-11.9500758,-77.0023885,15.5z/data=!4m14!4m13!1m5!3m4!1m2!1d-76.9911339!2d-11.9551037!3s0x9105c54963dc7055:0xcdc5947f2dda60a5!1m5!1m1!1s0x9105d1005152ff35:0x13f8bb672a375b3!2m2!1d-77.012115!2d-11.9387494!3e0" target="_blank" class="btn-maps der">
+                <i class="fa-solid fa-route"></i> Subida
+            </a>
 
-</div>
+        </div>
 
-<!-- VOLVER -->
-<div class="volver">
-    <a href="menu.html" class="btn-volver">
-        <i class="fa-solid fa-arrow-left"></i> Volver
-    </a>
-</div>
+        <!-- VOLVER -->
+        <div class="volver">
+            <a href="menu.html" class="btn-volver">
+                <i class="fa-solid fa-arrow-left"></i> Volver
+            </a>
+        </div>
+
+    </div>
 
 </body>
 </html>

@@ -3,149 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <title>Menú Principal</title>
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
-    <style>
-
-        body{
-            background: #0f172a;
-            color: white;
-            font-family: 'Poppins', sans-serif;
-        }
-        body{
-            background-image: url('./carro.jpeg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-
-            color:white;
-            font-family:Arial;
-            margin:0;
-            padding:30px;
-
-            position: relative;
-        }
-        body::before{
-            content:"";
-            position:fixed;
-            top:0;
-            left:0;
-            width:100%;
-            height:100%;
-            background: rgba(0,0,0,0.45);
-            z-index:-1;
-        }
-
-
-        .titulo{
-            text-align: center;
-            padding: 30px;
-            font-size: 40px;
-            font-weight: bold;
-        }
-
-        .contenedor{
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            padding: 40px;
-        }
-
-        .card-menu{
-            background: #1e293b;
-            padding: 25px;
-            border-radius: 15px;
-            text-align: center;
-            transition: 0.3s;
-            cursor: pointer;
-        }
-
-        .card-menu:hover{
-            transform: scale(1.05);
-            background: #334155;
-        }
-
-        .card-menu i{
-            font-size: 40px;
-            margin-bottom: 15px;
-            color: #38bdf8;
-        }
-
-    </style>
-
+    <link rel="stylesheet" href="./css/styles.css">
 </head>
-<body>
 
- <div class="contenedor">
+<body class="body-menu">
 
-    <!-- Choferes -->
-    <div class="card text-bg-dark" style="width: 18rem;">
-        <img src="https://cdn-icons-png.flaticon.com/512/1995/1995574.png" class="card-img-top" alt="choferes">
-        <div class="card-body">
-            <h5 class="card-title">Padrones Choferes</h5>
-            <p class="card-text">Información de conductores</p>
-        </div>
-    </div>
+    <div id="pantalla-menu">
 
-    <!-- Rutas -->
-    <a href="rutas.html" class="text-decoration-none">
-        <div class="card text-bg-dark" style="width: 18rem;">
-            <img src="https://cdn-icons-png.flaticon.com/512/854/854894.png" class="card-img-top" alt="rutas">
-            <div class="card-body">
-                <h5 class="card-title">Rutas</h5>
-                <p class="card-text">Destinos disponibles</p>
+        <div class="contenedor-grid">
+
+            <!-- Choferes -->
+            <div class="card text-bg-dark" style="width: 18rem;">
+                <img src="https://cdn-icons-png.flaticon.com/512/1995/1995574.png" class="card-img-top" alt="choferes">
+                <div class="card-body">
+                    <h5 class="card-title">Padrones Choferes</h5>
+                    <p class="card-text">Información de conductores</p>
+                </div>
             </div>
+
+            <!-- Rutas -->
+            <a href="rutas.html" class="text-decoration-none">
+                <div class="card text-bg-dark" style="width: 18rem;">
+                    <img src="https://cdn-icons-png.flaticon.com/512/854/854894.png" class="card-img-top" alt="rutas">
+                    <div class="card-body">
+                        <h5 class="card-title">Rutas</h5>
+                        <p class="card-text">Destinos disponibles</p>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Tarifas -->
+            <div class="card text-bg-dark" style="width: 18rem;">
+                <img src="https://cdn-icons-png.flaticon.com/512/1041/1041888.png" class="card-img-top" alt="tarifas">
+                <div class="card-body">
+                    <h5 class="card-title">Tarifas</h5>
+                    <p class="card-text">Precios de pasajes</p>
+                </div>
+            </div>
+
+            <!-- Novedades -->
+            <div class="card text-bg-dark" style="width: 18rem;">
+                <img src="https://cdn-icons-png.flaticon.com/512/1053/1053210.png" class="card-img-top" alt="novedades">
+                <div class="card-body">
+                    <h5 class="card-title">Novedades</h5>
+                    <p class="card-text">Noticias importantes</p>
+                </div>
+            </div>
+
+            <!-- Carreras privadas -->
+            <div class="card text-bg-dark" style="width: 18rem;">
+                <img src="https://cdn-icons-png.flaticon.com/512/744/744465.png" class="card-img-top" alt="carro">
+                <div class="card-body">
+                    <h5 class="card-title">Carreras Privadas</h5>
+                    <p class="card-text">Servicios especiales</p>
+                </div>
+            </div>
+
+            <!-- Ayuda -->
+            <a href="quejas.html" class="text-decoration-none">
+                <div class="card text-bg-dark" style="width: 18rem;">
+                    <img src="https://cdn-icons-png.flaticon.com/512/471/471664.png" class="card-img-top" alt="ayuda">
+                    <div class="card-body">
+                        <h5 class="card-title">Quejas / Ayuda</h5>
+                        <p class="card-text">Soporte al cliente</p>
+                    </div>
+                </div>
+            </a>
+
         </div>
-    </a>
 
-    <!-- Tarifas -->
-    <div class="card text-bg-dark" style="width: 18rem;">
-        <img src="https://cdn-icons-png.flaticon.com/512/1041/1041888.png" class="card-img-top" alt="tarifas">
-        <div class="card-body">
-            <h5 class="card-title">Tarifas</h5>
-            <p class="card-text">Precios de pasajes</p>
+        <!-- BOTÓN VOLVER -->
+        <div class="seccion-volver">
+            <a href="index.html" class="btn btn-warning">
+                <i class="fa-solid fa-arrow-left"></i> Volver
+            </a>
         </div>
-    </div>
 
-    <!-- Novedades -->
-    <div class="card text-bg-dark" style="width: 18rem;">
-        <img src="https://cdn-icons-png.flaticon.com/512/1053/1053210.png" class="card-img-top" alt="novedades">
-        <div class="card-body">
-            <h5 class="card-title">Novedades</h5>
-            <p class="card-text">Noticias importantes</p>
-        </div>
     </div>
-
-    <!-- Carreras privadas -->
-    <div class="card text-bg-dark" style="width: 18rem;">
-        <img src="https://cdn-icons-png.flaticon.com/512/744/744465.png" class="card-img-top" alt="carro">
-        <div class="card-body">
-            <h5 class="card-title">Carreras Privadas</h5>
-            <p class="card-text">Servicios especiales</p>
-        </div>
-    </div>
-
-    <!-- Ayuda -->
-    <div class="card text-bg-dark" style="width: 18rem;">
-        <img src="https://cdn-icons-png.flaticon.com/512/471/471664.png" class="card-img-top" alt="ayuda">
-        <div class="card-body">
-            <h5 class="card-title">Quejas / Ayuda</h5>
-            <p class="card-text">Soporte al cliente</p>
-        </div>
-    </div>
-    </div>
-
-    <!-- BOTÓN VOLVER -->
-    <div style="text-align:center; margin-top:30px;">
-        <a href="index.html" class="btn btn-warning">
-            <i class="fa-solid fa-arrow-left"></i> Volver
-        </a>
-    </div>
-
-</div>
 
 </body>
 </html>
