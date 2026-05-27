@@ -100,7 +100,7 @@ body.body-menu::before {
 
 /*================================= Estilos de la interfaz Ruras.html =========================================*/
 body.body-rutas {
-    background-image: url('../imagenes/carro.jpeg'); /* El '..' es porque el CSS está dentro de la carpeta /css/ */
+    background-image: url('../imagenes/carro.jpeg'); 
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -108,7 +108,7 @@ body.body-rutas {
     color: white;
     font-family: Arial, sans-serif;
     margin: 0;
-    padding: 30px;
+    padding: 0; 
     position: relative;
 }
 
@@ -150,7 +150,7 @@ body.body-rutas::before {
     color: white;
     text-decoration: none;
     font-weight: bold;
-    transition: 0.3s;
+    transition: 0.3s ease;
 }
 
 #pantalla-rutas .izq {
@@ -165,11 +165,6 @@ body.body-rutas::before {
     transform: scale(1.05);
 }
 
-#pantalla-rutas .volver {
-    text-align: center;
-    margin-top: 30px;
-}
-
 #pantalla-rutas .btn-volver {
     background: #f97316;
     padding: 10px 18px;
@@ -177,12 +172,14 @@ body.body-rutas::before {
     text-decoration: none;
     border-radius: 10px;
     font-weight: bold;
-    transition: 0.3s;
+    transition: 0.3s ease;
+    display: inline-block; /* Lo dejamos fijo aquí para evitar tirones visuales */
 }
+
 
 #pantalla-rutas .btn-volver:hover {
     background: #ea580c;
-    transform: translateX(-5px);
+    transform: scale(1.08); 
 }
 /*=============================================================================================================*/
 
@@ -201,29 +198,6 @@ body.body-quejas.carta-imagenfondo {
 
 #pantalla-quejas .barra-logo {
     background-color: rgba(10, 17, 30, 0.8) !important;
-}
-
-#pantalla-quejas .barra-menu {
-    background-color: rgba(10, 17, 30, 0.8) !important;
-}
-
-#pantalla-quejas .barra-menu .nav-link {
-    color: rgba(255, 255, 255, 0.7) !important; 
-    transition: color 0.3s ease; 
-}
-
-#pantalla-quejas .barra-menu .nav-link:hover,
-#pantalla-quejas .barra-menu .nav-link.active {
-    color: #ffffff !important;
-}
-
-/* Botón de menú en celulares */
-#pantalla-quejas .barra-menu .navbar-toggler {
-    border-color: rgba(255, 255, 255, 0.5) !important;
-}
-
-#pantalla-quejas .barra-menu .navbar-toggler-icon {
-    filter: invert(1); 
 }
 
 /* Imagen de tema interfaz unificada */
@@ -257,19 +231,50 @@ body.body-quejas.carta-imagenfondo {
     backdrop-filter: blur(8px); 
 }
 
-/* Footer / Pie de página */
-#pantalla-quejas .barra-pie {
-    background-color: rgba(10, 17, 30, 0.8) !important; 
-    backdrop-filter: blur(10px); 
-    border-top: 1px solid rgba(255, 255, 255, 0.1); 
+#pantalla-quejas .volver {
+    text-align: center;
+    margin-top: 30px;
 }
 
-#pantalla-quejas .barra-pie a i {
+#pantalla-quejas .btn-volver {
+    background: #f97316;
+    padding: 10px 18px;
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+#pantalla-quejas .btn-volver:hover {
+    transform: scale(1.08);
+    display: inline-block;
+}
+/*=============================================================================================================*/
+
+
+
+
+
+/*================================= TANTO COMO LA BARRA DE MENU Y LA ULTIMA DE FUTTER =========================================*/
+
+
+
+/* Esto es el Futter */
+.main-footer {
+    background-color: rgba(10, 17, 30, 0.82) !important; 
+    backdrop-filter: blur(10px); 
+    -webkit-backdrop-filter: blur(10px); /* Asegura compatibilidad con Safari */
+    border-top: 1px solid rgba(255, 255, 255, 0.1); 
+    width: 100%;
+}
+
+.main-footer a i {
     transition: transform 0.3s ease, color 0.3s ease;
 }
 
-#pantalla-quejas .barra-pie a:hover i {
-    color: #0d6efd !important; 
+.main-footer a:hover i {
+    color: #f97316 !important; /* Tip: Si usas el naranja que armamos para el botón volver, mantienes la paleta de colores del sitio */
     transform: scale(1.15); 
 }
 /*=============================================================================================================*/
