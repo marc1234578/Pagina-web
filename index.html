@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Empresa de Transportes - Inicio</title>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -13,8 +14,9 @@
 <body class="body-inicio">
 
     <div id="pantalla-inicio">
-        
+
         <div class="bloque-bienvenida">
+
             <h1>
                 <i class="fa-solid fa-van-shuttle"></i>
                 HIJOS DE CRISTO REY
@@ -24,12 +26,59 @@
                 Transporte seguro, rápido y confiable
             </p>
 
-            <a href="./menu.html" class="btn-entrar">
-                Entrar
-            </a>
+            <!-- BOTONES PRINCIPALES -->
+            <div id="opciones">
+                <button class="btn btn-success me-2" onclick="mostrarLogin()">
+                    Iniciar Sesión
+                </button>
+
+                <a href="registro.html" class="btn btn-outline-light">
+                    Registrarse
+                </a>
+            </div>
+
+            <!-- FORMULARIO LOGIN -->
+            <div id="login" style="display:none; margin-top:20px;">
+
+                <input
+                    type="email"
+                    class="form-control mb-3"
+                    placeholder="Correo electrónico"
+                >
+
+                <input
+                    type="password"
+                    class="form-control mb-3"
+                    placeholder="Contraseña"
+                >
+
+                <a href="menu.html" class="btn btn-success w-100 mb-2">
+                    Ingresar
+                </a>
+
+                <button
+                    class="btn btn-secondary w-100"
+                    onclick="ocultarLogin()">
+                    Regresar
+                </button>
+
+            </div>
+
         </div>
 
     </div>
+
+<script>
+function mostrarLogin() {
+    document.getElementById("opciones").style.display = "none";
+    document.getElementById("login").style.display = "block";
+}
+
+function ocultarLogin() {
+    document.getElementById("login").style.display = "none";
+    document.getElementById("opciones").style.display = "block";
+}
+</script>
 
 </body>
 </html>
