@@ -50,47 +50,52 @@
                 </div>
             </section>
 
-            <div class="container py-5">
-                <div class="card mb-3 text-light border-0 carta-ayuda"> 
+
+            <!-- Tarjeta -->
+        <div class="container py-5">
+                <div class="card mb-3 text-light border-0 carta-ayuda bg-transparent"> 
                     <div class="row g-0"> 
                         <div class="col-12">
                             <div class="card-body p-4 p-md-5"> 
                                 <h4 class="card-title text-center text-md-start">Cuéntanos qué sucedió :</h4>
                                 <hr class="border-light border-2 opacity-25 w-25 mb-4">
                                 
-                                <div class="row">
-                                    <div class="col-md-6 text-dark">
-                                        <div class="form-floating mb-3">
-                                            <input type="text" class="form-control" id="floatingName" placeholder="Tu nombre">
-                                            <label for="floatingName">Nombre Completo</label>
+                                <form id="form-quejas">
+                                    
+                                    <div class="row">
+                                        <div class="col-md-6 text-dark">
+                                            <div class="form-floating mb-3">
+                                                <input type="text" class="form-control" id="floatingName" placeholder="Tu nombre" required>
+                                                <label for="floatingName">Nombre Completo</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 text-dark">
+                                            <div class="form-floating mb-3">
+                                                <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" required>
+                                                <label for="floatingInput">Correo Electrónico de Contacto</label>
+                                            </div>
+                                        </div>
+                                    </div> 
+                                    
+                                    <div class="col text-dark py-2">
+                                        <div class="form-floating">
+                                            <textarea class="form-control" placeholder="Detalla tu reclamo o sugerencia" id="floatingTextarea2" style="height: 150px" required></textarea>
+                                            <label for="floatingTextarea2">Escribe detalladamente tu queja o sugerencia aquí...</label>
                                         </div>
                                     </div>
-                                    <div class="col-md-6 text-dark">
-                                        <div class="form-floating mb-3">
-                                            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-                                            <label for="floatingInput">Correo Electrónico de Contacto</label>
-                                        </div>
+                                    
+                                    <div class="text-center pt-4">
+                                        <button type="submit" class="btn btn-danger w-50 fw-bold py-2" style="font-size: 0.9rem; letter-spacing: 1px;">ENVIAR REPORTE</button>
                                     </div>
-                                </div> 
-                                
-                                <div class="col text-dark py-2">
-                                    <div class="form-floating">
-                                        <textarea class="form-control" placeholder="Detalla tu reclamo o sugerencia" id="floatingTextarea2" style="height: 150px"></textarea>
-                                        <label for="floatingTextarea2">Escribe detalladamente tu queja o sugerencia aquí...</label>
-                                    </div>
+
+                                </form>
                                 </div>
-                                
-                                <div class="text-center pt-4">
-                                    <button type="submit" class="btn btn-danger w-50 fw-bold py-2" style="font-size: 0.9rem; letter-spacing: 1px;">ENVIAR REPORTE</button>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </main>
-    </div>
 
+    <!-- footer -->
     <footer class="main-footer mt-5 text-white"> <div class="container-fluid p-0">
             <div class="card mb-0 border-0 rounded-0 bg-transparent text-white"> 
                 <div class="row g-0 justify-content-center py-5 w-100"> 
@@ -126,5 +131,41 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.getElementById('form-quejas').addEventListener('submit', function(event) {
+            event.preventDefault(); // ¡Esta línea mágica evita el parpadeo!
+
+            // 1. Capturamos los datos
+            const nombre = document.getElementById('floatingName').value;
+            const correo = document.getElementById('floatingInput').value;
+            const detalle = document.getElementById('floatingTextarea2').value;
+
+            // 2. Los lanzamos a Python por el puerto 5000
+            fetch('http://127.0.0.1:5000/api/quejas', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    nombre: nombre,
+                    correo: correo,
+                    detalle: detalle
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if(data.status === 'success') {
+                    alert('✅ ¡Reporte enviado y guardado con éxito!');
+                    document.getElementById('form-quejas').reset(); // Limpia los campos
+                } else {
+                    alert('❌ Error del servidor: ' + data.mensaje);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('⚠️ No se pudo conectar con Python.');
+            });
+        });
+    </script>
 </body>
 </html>
