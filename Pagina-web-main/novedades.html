@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Novedades - Hijos de Cristo Rey</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family: Arial, sans-serif;
+    color:white;
+
+    background:
+    linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.75)),
+    url('imagenes/carro.jpeg');
+
+    background-size:cover;
+    background-position:center;
+    background-attachment:fixed;
+}
+
+/* ENCABEZADO */
+
+header{
+    text-align:center;
+    padding:40px;
+    background:rgba(0,0,0,0.4);
+    backdrop-filter:blur(5px);
+}
+
+header h1{
+    font-size:50px;
+    color:#3da5ff;
+    text-shadow:0 0 15px #3da5ff;
+}
+
+header p{
+    margin-top:10px;
+    font-size:20px;
+    color:#dcdcdc;
+}
+
+/* BOTÓN VOLVER */
+
+.volver-menu{
+    width:85%;
+    margin:auto;
+    margin-top:20px;
+}
+
+.btn-volver{
+    display:inline-block;
+    background:#ffc107;
+    color:black;
+    text-decoration:none;
+    padding:12px 20px;
+    border-radius:10px;
+    font-weight:bold;
+    transition:0.3s;
+}
+
+.btn-volver:hover{
+    background:#ffca2c;
+    transform:translateY(-2px);
+}
+
+/* CONTENEDOR */
+
+.contenedor{
+    width:85%;
+    margin:auto;
+    padding:30px 0;
+}
+
+/* TARJETAS */
+
+.novedad{
+    background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.15);
+    border-left:6px solid #3da5ff;
+    padding:25px;
+    margin-bottom:25px;
+    border-radius:18px;
+    backdrop-filter:blur(10px);
+    transition:0.4s;
+}
+
+.novedad:hover{
+    transform:translateY(-5px);
+    box-shadow:0 0 25px rgba(61,165,255,0.6);
+}
+
+.novedad h2{
+    color:#3da5ff;
+    margin-bottom:10px;
+}
+
+.fecha{
+    color:#bbbbbb;
+    margin-bottom:12px;
+}
+
+/* BOTONES */
+
+.boton{
+    display:inline-block;
+    margin-top:15px;
+    padding:10px 20px;
+    background:#3da5ff;
+    color:white;
+    text-decoration:none;
+    border-radius:10px;
+    transition:0.3s;
+}
+
+.boton:hover{
+    background:#1476c9;
+    box-shadow:0 0 15px #3da5ff;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:768px){
+
+    header h1{
+        font-size:35px;
+    }
+
+    .contenedor{
+        width:95%;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+    <h1>Hijos de Cristo Rey</h1>
+    <p>Servicio de Transporte Público</p>
+</header>
+
+<div class="volver-menu">
+    <a href="menu.html" class="btn-volver">
+        ← Volver al menú
+    </a>
+</div>
+
+<div class="contenedor">
+
+    <div class="novedad">
+        <h2>🕒 Nuevos Horarios</h2>
+        <p class="fecha">22 Mayo 2026</p>
+
+        <p>
+            Las unidades estarán disponibles desde las
+            5:00 a.m. hasta las 10:00 p.m.
+        </p>
+
+        <a href="#" class="boton">Leer más</a>
+    </div>
+
+    <div class="novedad">
+        <h2>🚐 Nuevas Minivanes</h2>
+        <p class="fecha">20 Mayo 2026</p>
+
+        <p>
+            La empresa incorporó nuevas unidades modernas
+            para brindar mayor seguridad y comodidad a los pasajeros.
+        </p>
+
+        <a href="#" class="boton">Leer más</a>
+    </div>
+
+    <div class="novedad">
+        <h2>📢 Comunicado Importante</h2>
+        <p class="fecha">18 Mayo 2026</p>
+
+        <p>
+            Se recomienda respetar las filas,
+            mantener la limpieza y cuidar las unidades.
+        </p>
+
+        <a href="#" class="boton">Leer más</a>
+    </div>
+
+</div>
+
+</body>
+</html>
