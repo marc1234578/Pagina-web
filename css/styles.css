@@ -1,0 +1,280 @@
+/*================================= Estilos de la interfaz Index.html =========================================*/
+/* Fondo y centrado exclusivo para la pantalla de inicio */
+body.body-inicio {
+    height: 100vh;
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(168, 19, 19, 0.5)), url('../imagenes/carro.jpeg');
+    background-size: cover;
+    background-position: center;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Encapsulado usando el ID padre para evitar romper otras páginas */
+#pantalla-inicio .bloque-bienvenida {
+    text-align: center;
+    color: white;
+    padding: 20px;
+}
+
+#pantalla-inicio .bloque-bienvenida h1 {
+    font-size: 60px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+#pantalla-inicio .bloque-bienvenida p {
+    font-size: 20px;
+    margin-bottom: 30px;
+}
+
+#pantalla-inicio .btn-entrar {
+    display: inline-block; /* Necesario para que respete el padding al ser un enlace */
+    padding: 15px 40px;
+    font-size: 18px;
+    border: none;
+    border-radius: 50px;
+    background: #00b894;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+    text-decoration: none;
+}
+
+#pantalla-inicio .btn-entrar:hover {
+    background: #019875;
+    transform: scale(1.05);
+}
+/*=============================================================================================================*/
+
+
+
+
+
+/*================================= Estilos de la interfaz Menu.html =========================================*/
+/* Fondo específico para la página de menú */
+body.body-menu {
+    background-image: url('../imagenes/carro.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    color: white;
+    font-family: 'Poppins', Arial, sans-serif;
+    margin: 0;
+    padding: 30px;
+    position: relative;
+}
+
+body.body-menu::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.45);
+    z-index: -1;
+}
+
+/* Encapsulado de la estructura del menú mediante su ID padre */
+#pantalla-menu .contenedor-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 40px;
+    justify-items: center; /* Centra las tarjetas de Bootstrap en sus rejillas */
+}
+
+#pantalla-menu .seccion-volver {
+    text-align: center; 
+    margin-top: 30px;
+}
+/*=============================================================================================================*/
+
+
+
+
+
+/*================================= Estilos de la interfaz Ruras.html =========================================*/
+body.body-rutas {
+    background-image: url('../imagenes/carro.jpeg'); 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    color: white;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0; 
+    position: relative;
+}
+
+body.body-rutas::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.45);
+    z-index: -1;
+}
+
+/* Encapsulado de elementos usando el ID padre */
+#pantalla-rutas .titulo {
+    text-align: center;
+    font-size: 40px;
+    margin-bottom: 20px;
+}
+
+#pantalla-rutas .img-vuelta {
+    width: 90%;
+    max-width: 650px;
+    display: block;
+    margin: 20px auto;
+    border-radius: 15px;
+}
+
+#pantalla-rutas .botones-maps {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 40px;
+}
+
+#pantalla-rutas .btn-maps {
+    padding: 10px 15px;
+    border-radius: 10px;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s ease;
+}
+
+#pantalla-rutas .izq {
+    background: #22c55e;
+}
+
+#pantalla-rutas .der {
+    background: #38bdf8;
+}
+
+#pantalla-rutas .btn-maps:hover {
+    transform: scale(1.05);
+}
+
+#pantalla-rutas .btn-volver {
+    background: #f97316;
+    padding: 10px 18px;
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    font-weight: bold;
+    transition: 0.3s ease;
+    display: inline-block; /* Lo dejamos fijo aquí para evitar tirones visuales */
+}
+
+
+#pantalla-rutas .btn-volver:hover {
+    background: #ea580c;
+    transform: scale(1.08); 
+}
+/*=============================================================================================================*/
+
+
+
+
+/*================================= Estilos de la interfaz Quejas.html =========================================*/
+/* Fondo general heredado para la pantalla de quejas */
+body.body-quejas.carta-imagenfondo {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../imagenes/carro.jpeg'); 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+#pantalla-quejas .barra-logo {
+    background-color: rgba(10, 17, 30, 0.8) !important;
+}
+
+/* Imagen de tema interfaz unificada */
+#pantalla-quejas .fondo-tema {
+    color: #0d6efd !important; 
+    transform: scale(1.15); 
+    padding-top: 80px;
+    padding-bottom: 80px;
+}
+
+#pantalla-quejas .texto-destacado {
+    color: #5336d6;
+    font-weight: bold;
+}
+
+#pantalla-quejas .texto-secundario {
+    color: #adb5bd;
+    letter-spacing: 3px;
+}
+
+#pantalla-quejas .linea-separadora {
+    border: 2px solid #ffffff;
+    opacity: 0.25;
+    width: 25%;
+    margin: 20px auto;
+}
+
+/* Contenedor del formulario */
+#pantalla-quejas .carta-ayuda {
+    background-color: rgba(10, 17, 30, 0.8) !important;  
+    backdrop-filter: blur(8px); 
+}
+
+#pantalla-quejas .volver {
+    text-align: center;
+    margin-top: 30px;
+}
+
+#pantalla-quejas .btn-volver {
+    background: #f97316;
+    padding: 10px 18px;
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+#pantalla-quejas .btn-volver:hover {
+    transform: scale(1.08);
+    display: inline-block;
+}
+/*=============================================================================================================*/
+
+
+
+
+
+/*================================= TANTO COMO LA BARRA DE MENU Y LA ULTIMA DE FUTTER =========================================*/
+
+
+
+/* Esto es el Futter */
+.main-footer {
+    background-color: rgba(10, 17, 30, 0.82) !important; 
+    backdrop-filter: blur(10px); 
+    -webkit-backdrop-filter: blur(10px); /* Asegura compatibilidad con Safari */
+    border-top: 1px solid rgba(255, 255, 255, 0.1); 
+    width: 100%;
+}
+
+.main-footer a i {
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.main-footer a:hover i {
+    color: #f97316 !important; /* Tip: Si usas el naranja que armamos para el botón volver, mantienes la paleta de colores del sitio */
+    transform: scale(1.15); 
+}
+/*=============================================================================================================*/
