@@ -1,370 +1,220 @@
 <!DOCTYPE html>
-
-
-
 <html lang="es">
-
 <head>
 
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Carreras Privadas - Hijos de Cristo Rey</title>
-
-
 
 <style>
 
-
-
 *{
-
   margin:0;
-
   padding:0;
-
   box-sizing:border-box;
-
 }
-
-
 
 body{
-
   font-family: Arial, sans-serif;
-
   color:white;
-
-
-
   background:
-
   linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.75)),
-
   url('imagenes/carro.jpeg');
-
-
-
   background-size:cover;
-
   background-position:center;
-
   background-attachment:fixed;
-
 }
-
-
 
 header{
-
   text-align:center;
-
   padding:40px;
-
   background:rgba(0,0,0,0.4);
-
   backdrop-filter:blur(5px);
-
 }
-
-
 
 header h1{
-
   color:#3da5ff;
-
   font-size:45px;
-
   text-shadow:0 0 15px #3da5ff;
-
 }
-
-
 
 header p{
-
   margin-top:10px;
-
   color:#ddd;
-
 }
-
-
 
 .contenedor{
-
   width:90%;
-
   max-width:700px;
-
   margin:40px auto;
-
 }
-
-
 
 .formulario{
-
   background:rgba(255,255,255,0.08);
-
   border-radius:20px;
-
   padding:30px;
-
   backdrop-filter:blur(10px);
-
   border:1px solid rgba(255,255,255,0.15);
-
 }
-
-
 
 .formulario h2{
-
   text-align:center;
-
   margin-bottom:25px;
-
   color:#3da5ff;
-
 }
-
-
 
 label{
-
   display:block;
-
   margin-top:15px;
-
   margin-bottom:8px;
-
 }
-
-
 
 input, textarea{
-
   width:100%;
-
   padding:12px;
-
   border:none;
-
   border-radius:10px;
-
   font-size:15px;
-
 }
-
-
 
 textarea{
-
   resize:none;
-
 }
-
-
 
 .botones{
-
   margin-top:25px;
-
   display:flex;
-
   gap:15px;
-
   flex-wrap:wrap;
-
 }
-
-
 
 .btn{
-
   text-decoration:none;
-
   border:none;
-
   cursor:pointer;
-
   padding:12px 20px;
-
   border-radius:10px;
-
   font-weight:bold;
-
 }
-
-
 
 .btn-solicitar{
-
   background:#3da5ff;
-
   color:white;
-
 }
-
-
 
 .btn-solicitar:hover{
-
   background:#1476c9;
-
 }
-
-
 
 .btn-volver{
-
   background:#ffc107;
-
   color:black;
-
 }
-
-
 
 .btn-volver:hover{
-
   background:#ffca2c;
-
 }
-
-
 
 #mensaje{
-
   margin-top:20px;
-
   padding:15px;
-
   border-radius:10px;
-
   background:rgba(61,165,255,0.2);
-
   display:none;
-
 }
 
-
-
 </style>
-
-
-
 </head>
-
-
-
 <body>
-
-
 
 <header>
 
   <h1>Hijos de Cristo Rey</h1>
-
   <p>Solicitud de Carrera Privada</p>
 
 </header>
 
 
-
 <div class="contenedor">
+    <div class="formulario">
+        <h2>Solicitar una Carrera</h2>
 
+        <form id="form-carreras">
+            
+            <label>¿Dónde inicia el viaje?</label>
+            <input type="text" id="origen" placeholder="Ingrese dirección de recogida" required>
 
+            <label>¿Cuál es su destino?</label>
+            <input type="text" id="destino" placeholder="Ingrese dirección de destino" required>
 
-```
+            <label>¿Cuánto desea pagar?</label>
+            <input type="number" id="monto" step="0.50" placeholder="Monto ofrecido" required>
 
-<div class="formulario">
+            <div class="botones">
+                <button type="submit" class="btn btn-solicitar">
+                    Solicitar Carrera
+                </button>
 
+                <a href="menu.html" class="btn btn-volver">
+                    Volver al Menú
+                </a>
+            </div>
 
+        </form>
 
-  <h2>Solicitar una Carrera</h2>
+        <div id="mensaje">
+            ✅ Solicitud enviada.<br><br>
+            Espere la respuesta del conductor.
+        </div>
 
-
-
-  <label>¿Dónde inicia el viaje?</label>
-
-  <input type="text" placeholder="Ingrese dirección de recogida">
-
-
-
-  <label>¿Cuál es su destino?</label>
-
-  <input type="text" placeholder="Ingrese dirección de destino">
-
-
-
-  <label>¿Cuánto desea pagar?</label>
-
-  <input type="number" placeholder="Monto ofrecido">
-
-
-
-  <div class="botones">
-
-
-
-    <button class="btn btn-solicitar" onclick="mostrarMensaje()">
-
-      Solicitar Carrera
-
-    </button>
-
-
-
-    <a href="menu.html" class="btn btn-volver">
-
-      Volver al Menú
-
-    </a>
-
-
-
-  </div>
-
-
-
-  <div id="mensaje">
-
-    ✅ Solicitud enviada.<br><br>
-
-    Espere la respuesta del conductor.
-
-  </div>
-
-
-
+    </div>
 </div>
-
-```
-
-
-
-</div>
-
-
 
 <script>
+    // 🌟 Script preparado al estilo de tu archivo quejas.html
+    document.getElementById("form-carreras").addEventListener("submit", function(event) {
+        event.preventDefault(); // Evita que la página parpadee
 
+        // 1. Muestra el mensaje visual que quería tu compañero
+        document.getElementById("mensaje").style.display = "block";
 
+        // 2. Captura los datos exactos que enviaremos a Python
+        const origen = document.getElementById("origen").value;
+        const destino = document.getElementById("destino").value;
+        const monto = document.getElementById("monto").value;
 
-function mostrarMensaje(){
+        // Imprimimos en consola para verificar (F12)
+        console.log("Datos capturados:", origen, destino, monto);
+       
+        fetch('http://127.0.0.1:5000/api/carreras', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                origen: origen,
+                destino: destino,
+                monto: monto
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if(data.status !== 'success') {
+                alert('❌ Error del servidor: ' + data.mensaje);
+            }
+        })
+        .catch(error => {
+            console.error('Error de conexión:', error);
+            alert('⚠️ No se pudo conectar con el servidor.');
+        });
 
-  document.getElementById("mensaje").style.display = "block";
-
-}
-
-
-
+       // Limpia los campos después de unos segundos (opcional, queda muy profesional)
+       setTimeout(() => {
+           document.getElementById("form-carreras").reset();
+           document.getElementById("mensaje").style.display = "none";
+       }, 4000);
+    });
 </script>
-
-
 
 </body>
 

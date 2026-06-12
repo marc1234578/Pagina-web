@@ -7,21 +7,25 @@ from db import get_db_connection
 app = Flask(__name__)
 CORS(app)
 
-@app.route('/api/quejas', methods=['POST'])
-def registrar_queja():
+@app.route('/api/carreras', methods=['POST'])
+def solicitar_carrera():
     try:
         datos = request.get_json()
         
-        nombre = datos.get('nombre')
-        correo = datos.get('correo')
-        detalle = datos.get('detalle')
+        # Capturamos los 3 datos que manda el HTML
+        origen = datos.get('origen')
+        destino = datos.get('destino')
+        monto = datos.get('monto')
 
-        # Usamos la función importada desde db.py
+        print(f"🚕 Nueva carrera recibida: {origen} -> {destino} (S/ {monto})")
+
+        # Conexión a la BD usando db.py
         conexion = get_db_connection()
         cursor = conexion.cursor()
 
-        sql = "INSERT INTO reportes_ayuda (nombre_completo, correo_contacto, detalle_queja) VALUES (%s, %s, %s)"
-        valores = (nombre, correo, detalle)
+        # Insertamos en la nueva tabla que creaste en SQL
+        sql = "INSERT INTO solicitudes_carrera (direccion_origen, direccion_destino, monto_ofrecido) VALUES (%s, %s, %s)"
+        valores = (origen, destino, monto)
         
         cursor.execute(sql, valores)
         conexion.commit()
@@ -29,7 +33,7 @@ def registrar_queja():
         cursor.close()
         conexion.close()
 
-        return jsonify({"status": "success", "mensaje": "¡Reporte guardado!"}), 201
+        return jsonify({"status": "success", "mensaje": "¡Carrera registrada en la BD!"}), 201
 
     except Exception as e:
         print("ERROR EN PYTHON:", str(e))

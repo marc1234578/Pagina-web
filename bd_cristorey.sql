@@ -12,5 +12,14 @@ CREATE TABLE reportes_ayuda (
     fecha_registro DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE TABLE solicitudes_carrera (
+    id_solicitud INT AUTO_INCREMENT PRIMARY KEY,
+    direccion_origen VARCHAR(255) NOT NULL,
+    direccion_destino VARCHAR(255) NOT NULL,
+    monto_ofrecido DECIMAL(8, 2) NOT NULL,
+    estado_solicitud VARCHAR(50) DEFAULT 'Pendiente',
+    fecha_registro DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
 -- 3. para ver la tabla
 Select * From reportes_ayuda
