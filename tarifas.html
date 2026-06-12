@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarifas - Hijos de Cristo Rey</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="./css/styles.css">
+    <style>
+        body.body-tarifas {
+            background-image: url('./imagenes/carro.jpeg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: white;
+            font-family: 'Poppins', Arial, sans-serif;
+            margin: 0;
+            padding: 30px;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        body.body-tarifas::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.58);
+            z-index: -1;
+        }
+
+        #pantalla-tarifas {
+            max-width: 750px;
+            margin: 0 auto;
+        }
+
+        .titulo-seccion {
+            text-align: center;
+            font-size: 34px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.7);
+        }
+
+        .subtitulo {
+            text-align: center;
+            font-size: 14px;
+            color: #ccc;
+            margin-bottom: 30px;
+        }
+
+        /* Encabezado empresa */
+        .header-empresa {
+            background: rgba(10, 17, 40, 0.88);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 16px;
+            padding: 20px 28px;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            margin-bottom: 28px;
+        }
+
+        .header-empresa .logo-texto {
+            flex: 1;
+        }
+
+        .header-empresa .empresa-nombre {
+            font-size: 22px;
+            font-weight: 800;
+            color: #f59e0b;
+            line-height: 1.2;
+        }
+
+        .header-empresa .empresa-sub {
+            font-size: 13px;
+            color: #adb5bd;
+            margin-top: 4px;
+        }
+
+        .badge-ruta {
+            background: #dc2626;
+            color: white;
+            font-size: 22px;
+            font-weight: 800;
+            border-radius: 50px;
+            padding: 8px 22px;
+            white-space: nowrap;
+        }
+
+        /* Sección de tabla */
+        .seccion-tabla {
+            background: rgba(10, 17, 40, 0.88);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .seccion-titulo {
+            background: #dc2626;
+            color: white;
+            font-size: 17px;
+            font-weight: 700;
+            text-align: center;
+            padding: 12px;
+            letter-spacing: 1px;
+        }
+
+        .tabla-tarifas {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .tabla-tarifas thead tr {
+            background: rgba(220, 38, 38, 0.25);
+        }
+
+        .tabla-tarifas thead th {
+            color: #f87171;
+            font-size: 13px;
+            font-weight: 700;
+            text-align: center;
+            padding: 10px 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .tabla-tarifas thead th:first-child {
+            text-align: left;
+        }
+
+        .tabla-tarifas tbody tr {
+            border-bottom: 1px solid rgba(255,255,255,0.07);
+            transition: background 0.2s;
+        }
+
+        .tabla-tarifas tbody tr:hover {
+            background: rgba(255,255,255,0.06);
+        }
+
+        .tabla-tarifas tbody tr:last-child {
+            border-bottom: none;
+        }
+
+        .tabla-tarifas td {
+            padding: 14px 16px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .tabla-tarifas td:first-child {
+            text-align: left;
+            font-weight: 600;
+            color: #e2e8f0;
+        }
+
+        .precio-adulto {
+            color: #34d399;
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .precio-escolar {
+            color: #60a5fa;
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        /* Nota al pie */
+        .nota-pie {
+            background: rgba(10, 17, 40, 0.88);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 14px;
+            padding: 16px 20px;
+            font-size: 13px;
+            color: #adb5bd;
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .nota-pie i { color: #f59e0b; margin-right: 6px; }
+        .nota-pie strong { color: white; }
+
+        /* Leyenda */
+        .leyenda {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-bottom: 28px;
+            flex-wrap: wrap;
+        }
+
+        .leyenda-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+        }
+
+        .dot-adulto { width: 12px; height: 12px; border-radius: 50%; background: #34d399; }
+        .dot-escolar { width: 12px; height: 12px; border-radius: 50%; background: #60a5fa; }
+
+        .seccion-volver {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .btn-volver-tarifas {
+            background: #f97316;
+            padding: 10px 24px;
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: bold;
+            transition: 0.3s;
+            display: inline-block;
+        }
+
+        .btn-volver-tarifas:hover {
+            background: #ea580c;
+            transform: scale(1.05);
+            color: white;
+        }
+    </style>
+</head>
+
+<body class="body-tarifas">
+<div id="pantalla-tarifas">
+
+    <h1 class="titulo-seccion">
+        <i class="fa-solid fa-wallet me-2"></i> Tarifas de Pasaje
+    </h1>
+    <p class="subtitulo">Precios vigentes por tramo y tipo de pasajero</p>
+
+    <!-- Header empresa -->
+    <div class="header-empresa">
+        <div class="logo-texto">
+            <div class="empresa-nombre">EMP. HIJOS DE<br>CRISTO REY</div>
+            <div class="empresa-sub"><i class="fa-solid fa-van-shuttle me-1"></i> Servicio de transporte urbano</div>
+        </div>
+    </div>
+
+    <!-- Leyenda -->
+    <div class="leyenda">
+        <div class="leyenda-item"><div class="dot-adulto"></div> Precio Adulto</div>
+        <div class="leyenda-item"><div class="dot-escolar"></div> Precio Escolar</div>
+    </div>
+
+    <!-- BAJADA -->
+    <div class="seccion-tabla">
+        <div class="seccion-titulo">
+            <i class="fa-solid fa-arrow-down me-2"></i> PASAJE DE BAJADA
+        </div>
+        <table class="tabla-tarifas">
+            <thead>
+                <tr>
+                    <th>Tramo</th>
+                    <th>Adulto</th>
+                    <th>Escolar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><i class="fa-solid fa-route me-2" style="color:#f59e0b"></i>Ampliación II a Estación</td>
+                    <td><span class="precio-adulto">S/ 2.00</span></td>
+                    <td><span class="precio-escolar">S/ 1.50</span></td>
+                </tr>
+                <tr>
+                    <td><i class="fa-solid fa-route me-2" style="color:#f59e0b"></i>Ampliación II al 5 Wiesse</td>
+                    <td><span class="precio-adulto">S/ 1.50</span></td>
+                    <td><span class="precio-escolar">S/ 1.00</span></td>
+                </tr>
+                <tr>
+                    <td><i class="fa-solid fa-route me-2" style="color:#f59e0b"></i>Nueva Luz a Estación</td>
+                    <td><span class="precio-adulto">S/ 2.00</span></td>
+                    <td><span class="precio-escolar">S/ 1.50</span></td>
+                </tr>
+                <tr>
+                    <td><i class="fa-solid fa-route me-2" style="color:#f59e0b"></i>Nueva Luz al 5 Wiesse</td>
+                    <td><span class="precio-adulto">S/ 1.00</span></td>
+                    <td><span class="precio-escolar">S/ 1.00</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- SUBIDA -->
+    <div class="seccion-tabla">
+        <div class="seccion-titulo">
+            <i class="fa-solid fa-arrow-up me-2"></i> PASAJE DE SUBIDA
+        </div>
+        <table class="tabla-tarifas">
+            <thead>
+                <tr>
+                    <th>Tramo</th>
+                    <th>Adulto</th>
+                    <th>Escolar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><i class="fa-solid fa-route me-2" style="color:#f59e0b"></i>Estación a Ampliación II</td>
+                    <td><span class="precio-adulto">S/ 3.00</span></td>
+                    <td><span class="precio-escolar">S/ 1.50</span></td>
+                </tr>
+                <tr>
+                    <td><i class="fa-solid fa-route me-2" style="color:#f59e0b"></i>5 Wiesse a Ampliación II</td>
+                    <td><span class="precio-adulto">S/ 2.50</span></td>
+                    <td><span class="precio-escolar">S/ 1.50</span></td>
+                </tr>
+                <tr>
+                    <td><i class="fa-solid fa-route me-2" style="color:#f59e0b"></i>Estación a Nueva Luz</td>
+                    <td><span class="precio-adulto">S/ 2.00</span></td>
+                    <td><span class="precio-escolar">S/ 1.50</span></td>
+                </tr>
+                <tr>
+                    <td><i class="fa-solid fa-route me-2" style="color:#f59e0b"></i>5 Wiesse a Nueva Luz</td>
+                    <td><span class="precio-adulto">S/ 1.50</span></td>
+                    <td><span class="precio-escolar">S/ 1.00</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Nota -->
+    <div class="nota-pie">
+        <i class="fa-solid fa-circle-info"></i>
+        Quejas y sugerencias al <strong>906 888 251</strong> / <strong>928 946</strong>
+    </div>
+
+    <div class="seccion-volver">
+        <a href="menu.html" class="btn-volver-tarifas">
+            <i class="fa-solid fa-arrow-left me-1"></i> Volver al Menú
+        </a>
+    </div>
+
+</div>
+</body>
+</html>
