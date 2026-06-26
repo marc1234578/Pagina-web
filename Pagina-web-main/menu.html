@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HIJOS DE CRISTO REY - Menú Principal</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<!-- El mismo fondo exacto de index.html y registro.html -->
+<body style="background: radial-gradient(circle at top right, #f8f9fa 0%, #e9ecef 100%); font-family: 'Poppins', sans-serif; min-height: 100vh;" class="d-flex flex-column justify-content-between">
+
+    <!-- CONTENEDOR PRINCIPAL -->
+    <main class="container my-auto py-5">
+        
+        <!-- ENCABEZADO DEL MENÚ -->
+        <div class="text-center mb-5">
+            <div class="fs-1 mb-2" style="color: #475569;"><i class="fa-solid fa-layer-group"></i></div>
+            <h1 class="fw-bold h2 mb-1" style="color: #1e293b;">Menu Principal</h1>
+            <p class="text-muted small text-uppercase tracking-wider mb-0" style="letter-spacing: 2px;">HIJOS DE CRISTO REY</p>
+        </div>
+
+        <!-- REJILLA DE OPCIONES (6 TARJETAS CORREGIDAS) -->
+        <div class="row g-4 row-cols-1 row-cols-sm-2 row-cols-md-3 justify-content-center">
+            
+            <!-- 1. Padrones Choferes -->
+            <div class="col">
+                <div class="card h-100 shadow-sm p-4 text-center bg-white border border-light text-decoration-none" 
+                     style="border-radius: 14px; cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease;"
+                     onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 1rem 3rem rgba(0,0,0,.175)'" 
+                     onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 .125rem .25rem rgba(0,0,0,.075)'"
+                     onclick="window.location.href='choferes.html'">
+                    <div class="fs-1 mb-3" style="color: #3b82f6;"><i class="fa-solid fa-id-card"></i></div>
+                    <h2 class="h6 fw-bold mb-1" style="color: #1e293b;">Padrones Choferes</h2>
+                    <p class="text-muted small mb-0">Información de conductores</p>
+                </div>
+            </div>
+
+            <!-- 2. Rutas -->
+            <div class="col">
+                <div class="card h-100 shadow-sm p-4 text-center bg-white border border-light text-decoration-none" 
+                     style="border-radius: 14px; cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease;"
+                     onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 1rem 3rem rgba(0,0,0,.175)'" 
+                     onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 .125rem .25rem rgba(0,0,0,.075)'"
+                     onclick="window.location.href='rutas.html'">
+                    <div class="fs-1 mb-3" style="color: #ef4444;"><i class="fa-solid fa-map-location-dot"></i></div>
+                    <h2 class="h6 fw-bold mb-1" style="color: #1e293b;">Rutas</h2>
+                    <p class="text-muted small mb-0">Destinos disponibles</p>
+                </div>
+            </div>
+
+            <!-- 3. Tarifas -->
+            <div class="col">
+                <div class="card h-100 shadow-sm p-4 text-center bg-white border border-light text-decoration-none" 
+                     style="border-radius: 14px; cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease;"
+                     onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 1rem 3rem rgba(0,0,0,.175)'" 
+                     onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 .125rem .25rem rgba(0,0,0,.075)'"
+                     onclick="window.location.href='tarifas.html'">
+                    <div class="fs-1 mb-3" style="color: #10b981;"><i class="fa-solid fa-wallet"></i></div>
+                    <h2 class="h6 fw-bold mb-1" style="color: #1e293b;">Tarifas</h2>
+                    <p class="text-muted small mb-0">Precios de pasajes</p>
+                </div>
+            </div>
+
+            <!-- 4. Novedades -->
+            <div class="col">
+                <div class="card h-100 shadow-sm p-4 text-center bg-white border border-light text-decoration-none" 
+                     style="border-radius: 14px; cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease;"
+                     onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 1rem 3rem rgba(0,0,0,.175)'" 
+                     onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 .125rem .25rem rgba(0,0,0,.075)'"
+                     onclick="window.location.href='novedades.html'">
+                    <div class="fs-1 mb-3" style="color: #f59e0b;"><i class="fa-solid fa-bullhorn"></i></div>
+                    <h2 class="h6 fw-bold mb-1" style="color: #1e293b;">Novedades</h2>
+                    <p class="text-muted small mb-0">Noticias importantes</p>
+                </div>
+            </div>
+
+            <!-- 5. Carreras Privadas -->
+            <div class="col">
+                <div class="card h-100 shadow-sm p-4 text-center bg-white border border-light text-decoration-none" 
+                     style="border-radius: 14px; cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease;"
+                     onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 1rem 3rem rgba(0,0,0,.175)'" 
+                     onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 .125rem .25rem rgba(0,0,0,.075)'"
+                     onclick="window.location.href='carreraspriv.html'">
+                    <div class="fs-1 mb-3" style="color: #6366f1;"><i class="fa-solid fa-car-side"></i></div>
+                    <h2 class="h6 fw-bold mb-1" style="color: #1e293b;">Carreras Privadas</h2>
+                    <p class="text-muted small mb-0">Servicios especiales</p>
+                </div>
+            </div>
+
+            <!-- 6. Quejas / Ayuda -->
+            <div class="col">
+                <div class="card h-100 shadow-sm p-4 text-center bg-white border border-light text-decoration-none" 
+                     style="border-radius: 14px; cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease;"
+                     onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 1rem 3rem rgba(0,0,0,.175)'" 
+                     onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 .125rem .25rem rgba(0,0,0,.075)'"
+                     onclick="window.location.href='quejas.html'">
+                    <div class="fs-1 mb-3" style="color: #64748b;"><i class="fa-solid fa-circle-question"></i></div>
+                    <h2 class="h6 fw-bold mb-1" style="color: #1e293b;">Quejas / Ayuda</h2>
+                    <p class="text-muted small mb-0">Soporte al cliente</p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- BOTÓN CERRAR SESIÓN / VOLVER (REEMPLAZA AL AMARILLO CHILLÓN) -->
+        <div class="text-center mt-5">
+            <a href="index.html" class="btn btn-outline-dark px-4 fw-medium shadow-sm" style="border-radius: 8px;">
+                <i class="fa-solid fa-right-from-bracket me-2"></i>Cerrar Sesión
+            </a>
+        </div>
+
+    </main>
+
+</body>
+</html>

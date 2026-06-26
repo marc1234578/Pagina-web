@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Padrones Choferes</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="./css/styles.css">
+    <style>
+        body.body-choferes {
+            background-image: url('./imagenes/carro.jpeg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: white;
+            font-family: 'Poppins', Arial, sans-serif;
+            margin: 0;
+            padding: 30px;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        body.body-choferes::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.55);
+            z-index: -1;
+        }
+
+        #pantalla-choferes .titulo-seccion {
+            text-align: center;
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.7);
+        }
+
+        #pantalla-choferes .subtitulo {
+            text-align: center;
+            font-size: 15px;
+            color: #ccc;
+            margin-bottom: 35px;
+        }
+
+        /* Grid de tarjetas */
+        .grid-choferes {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 16px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        /* Tarjeta de cada chofer */
+        .card-chofer {
+            background: rgba(10, 17, 30, 0.82);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 14px;
+            padding: 18px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .card-chofer:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+            border-color: rgba(249, 115, 22, 0.5);
+        }
+
+        .avatar-chofer {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #f97316, #b91c1c);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .info-chofer { flex: 1; min-width: 0; }
+
+        .info-chofer .nombre {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 3px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .info-chofer .detalle {
+            font-size: 12px;
+            color: #adb5bd;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .promedio-badge {
+            background: rgba(245, 158, 11, 0.2);
+            border: 1px solid #f59e0b;
+            color: #f59e0b;
+            border-radius: 20px;
+            padding: 3px 10px;
+            font-size: 12px;
+            font-weight: 600;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .promedio-badge.sin-cal {
+            background: rgba(100,100,100,0.2);
+            border-color: #666;
+            color: #888;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.75);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-overlay.abierto {
+            display: flex;
+        }
+
+        .modal-cuerpo {
+            background: rgba(10, 17, 40, 0.97);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 20px;
+            padding: 36px 40px;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            position: relative;
+        }
+
+        .modal-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #f97316, #b91c1c);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            font-weight: 700;
+            margin: 0 auto 16px;
+        }
+
+        .modal-nombre {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .modal-info {
+            font-size: 13px;
+            color: #adb5bd;
+            margin-bottom: 4px;
+        }
+
+        .modal-separador {
+            border: 1px solid rgba(255,255,255,0.1);
+            margin: 20px 0;
+        }
+
+        .modal-pregunta {
+            font-size: 15px;
+            margin-bottom: 16px;
+            color: #ddd;
+        }
+
+        /* Estrellas del modal */
+        .estrellas-modal {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .estrella-modal {
+            font-size: 38px;
+            color: #444;
+            cursor: pointer;
+            transition: color 0.15s, transform 0.15s;
+        }
+
+        .estrella-modal:hover,
+        .estrella-modal.activa {
+            color: #f59e0b;
+            transform: scale(1.2);
+        }
+
+        .estrella-modal.hover-prev { color: #f59e0b; }
+
+        .texto-calificacion {
+            font-size: 14px;
+            color: #f59e0b;
+            font-weight: 600;
+            min-height: 20px;
+            margin-bottom: 20px;
+        }
+
+        .btn-guardar {
+            background: #f97316;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 10px 32px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btn-guardar:hover { background: #ea580c; transform: scale(1.05); }
+        .btn-guardar:disabled { background: #555; cursor: not-allowed; transform: none; }
+
+        .btn-cerrar-modal {
+            position: absolute;
+            top: 14px; right: 18px;
+            background: none;
+            border: none;
+            color: #aaa;
+            font-size: 22px;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .btn-cerrar-modal:hover { color: white; }
+
+        /* Toast */
+        #toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 184, 148, 0.95);
+            color: white;
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-size: 15px;
+            font-weight: 600;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: 2000;
+            pointer-events: none;
+        }
+
+        #toast.visible { opacity: 1; }
+
+        .seccion-volver {
+            text-align: center;
+            margin-top: 36px;
+        }
+
+        .btn-volver-chofer {
+            background: #f97316;
+            padding: 10px 24px;
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: bold;
+            transition: 0.3s;
+            display: inline-block;
+        }
+
+        .btn-volver-chofer:hover {
+            background: #ea580c;
+            transform: scale(1.05);
+            color: white;
+        }
+    </style>
+</head>
+
+<body class="body-choferes">
+<div id="pantalla-choferes">
+
+    <h1 class="titulo-seccion">
+        <i class="fa-solid fa-id-card me-2"></i> Padrones de Choferes
+    </h1>
+    <p class="subtitulo">Haz clic en un conductor para calificarlo de 0 a 5 estrellas</p>
+
+    <div id="lista-choferes" class="grid-choferes"></div>
+
+    <div class="seccion-volver">
+        <a href="menu.html" class="btn-volver-chofer">
+            <i class="fa-solid fa-arrow-left me-1"></i> Volver al Menú
+        </a>
+    </div>
+</div>
+
+<!-- Modal de calificación -->
+<div class="modal-overlay" id="modal">
+    <div class="modal-cuerpo">
+        <button class="btn-cerrar-modal" onclick="cerrarModal()">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+        <div class="modal-avatar" id="modal-avatar"></div>
+        <div class="modal-nombre" id="modal-nombre"></div>
+        <div class="modal-info" id="modal-placa"></div>
+        <div class="modal-info" id="modal-celular"></div>
+        <hr class="modal-separador">
+        <p class="modal-pregunta">¿Cómo calificarías a este conductor?</p>
+        <div class="estrellas-modal" id="estrellas-modal"></div>
+        <div class="texto-calificacion" id="texto-cal"></div>
+        <button class="btn-guardar" id="btn-guardar" onclick="guardarDesdeModal()" disabled>
+            <i class="fa-solid fa-floppy-disk me-1"></i> Guardar calificación
+        </button>
+    </div>
+</div>
+
+<!-- Toast -->
+<div id="toast"><i class="fa-solid fa-check-circle me-2"></i><span id="toast-txt"></span></div>
+
+<script>
+const choferes = [
+    { id:  1, nombre: "Carlos Mamani Quispe",     placa: "ABC-123", cel: "71234567" },
+    { id:  2, nombre: "Juan Flores Condori",       placa: "XYZ-456", cel: "72345678" },
+    { id:  3, nombre: "Pedro Ticona Huanca",       placa: "DEF-789", cel: "73456789" },
+    { id:  4, nombre: "Luis Mamani Chura",         placa: "GHI-012", cel: "74567890" },
+    { id:  5, nombre: "Roberto Condori Apaza",     placa: "JKL-345", cel: "75678901" },
+    { id:  6, nombre: "Erick Quispe Larico",       placa: "MNO-678", cel: "76789012" },
+    { id:  7, nombre: "Marco Huanca Callata",      placa: "PQR-901", cel: "77890123" },
+    { id:  8, nombre: "David Apaza Mamani",        placa: "STU-234", cel: "78901234" },
+    { id:  9, nombre: "Raul Chura Ticona",         placa: "VWX-567", cel: "79012345" },
+    { id: 10, nombre: "Felix Larico Flores",       placa: "YZA-890", cel: "70123456" },
+    { id: 11, nombre: "Jorge Condori Quispe",      placa: "BCD-123", cel: "71122334" },
+    { id: 12, nombre: "Hugo Mamani Torres",        placa: "EFG-456", cel: "72233445" },
+    { id: 13, nombre: "Oscar Ticona Callata",      placa: "HIJ-789", cel: "73344556" },
+    { id: 14, nombre: "Rene Flores Apaza",         placa: "KLM-012", cel: "74455667" },
+    { id: 15, nombre: "Walter Huanca Chura",       placa: "NOP-345", cel: "75566778" },
+    { id: 16, nombre: "Ruben Quispe Condori",      placa: "QRS-678", cel: "76677889" },
+    { id: 17, nombre: "Edwin Apaza Larico",        placa: "TUV-901", cel: "77788990" },
+    { id: 18, nombre: "Milton Torres Mamani",      placa: "WXY-234", cel: "78899001" },
+    { id: 19, nombre: "Ivan Callata Flores",       placa: "ZAB-567", cel: "79900112" },
+    { id: 20, nombre: "Cesar Chura Ticona",        placa: "CDE-890", cel: "70011223" },
+    { id: 21, nombre: "Nestor Condori Huanca",     placa: "FGH-123", cel: "71234001" },
+    { id: 22, nombre: "Hector Quispe Mamani",      placa: "IJK-456", cel: "72345002" },
+    { id: 23, nombre: "Rolando Larico Torres",     placa: "LMN-789", cel: "73456003" },
+    { id: 24, nombre: "Freddy Flores Callata",     placa: "OPQ-012", cel: "74567004" },
+    { id: 25, nombre: "Victor Apaza Ticona",       placa: "RST-345", cel: "75678005" },
+    { id: 26, nombre: "Guido Mamani Chura",        placa: "UVW-678", cel: "76789006" },
+    { id: 27, nombre: "Dante Huanca Condori",      placa: "XYZ-901", cel: "77890007" },
+    { id: 28, nombre: "Sergio Ticona Quispe",      placa: "ABC-234", cel: "78901008" },
+    { id: 29, nombre: "Alvaro Torres Flores",      placa: "DEF-567", cel: "79012009" },
+    { id: 30, nombre: "Rodrigo Callata Apaza",     placa: "GHI-890", cel: "70123010" },
+    { id: 31, nombre: "Gonzalo Chura Larico",      placa: "JKL-123", cel: "71234011" },
+    { id: 32, nombre: "Marcelo Condori Mamani",    placa: "MNO-456", cel: "72345012" },
+    { id: 33, nombre: "Dionicio Quispe Huanca",    placa: "PQR-789", cel: "73456013" },
+    { id: 34, nombre: "Enrique Flores Ticona",     placa: "STU-012", cel: "74567014" },
+    { id: 35, nombre: "Patricio Apaza Torres",     placa: "VWX-345", cel: "75678015" },
+    { id: 36, nombre: "Tomas Mamani Callata",      placa: "YZA-678", cel: "76789016" },
+    { id: 37, nombre: "Cristian Larico Chura",     placa: "BCD-901", cel: "77890017" },
+    { id: 38, nombre: "Fernando Huanca Quispe",    placa: "EFG-234", cel: "78901018" },
+    { id: 39, nombre: "Santiago Condori Flores",   placa: "HIJ-567", cel: "79012019" },
+    { id: 40, nombre: "Antonio Ticona Apaza",      placa: "KLM-890", cel: "70123020" },
+];
+
+const textos = ['', 'Muy malo', 'Malo', 'Regular', 'Bueno', 'Excelente'];
+
+let modalChoferActual = null;
+let estrellaSeleccionada = 0;
+
+function getCal(id) { return parseInt(localStorage.getItem('cal_' + id)) || 0; }
+function setCal(id, v) { localStorage.setItem('cal_' + id, v); }
+
+function badgeHTML(id) {
+    const c = getCal(id);
+    if (c === 0) return `<span class="promedio-badge sin-cal">Sin calificar</span>`;
+    return `<span class="promedio-badge">⭐ ${c}/5</span>`;
+}
+
+function renderChoferes() {
+    const cont = document.getElementById('lista-choferes');
+    cont.innerHTML = '';
+    choferes.forEach(ch => {
+        const ini = ch.nombre.split(' ').map(n=>n[0]).slice(0,2).join('');
+        const div = document.createElement('div');
+        div.className = 'card-chofer';
+        div.id = 'card-' + ch.id;
+        div.onclick = () => abrirModal(ch);
+        div.innerHTML = `
+            <div class="avatar-chofer">${ini}</div>
+            <div class="info-chofer">
+                <div class="nombre">${ch.nombre}</div>
+                <div class="detalle">
+                    <span><i class="fa-solid fa-car me-1"></i>${ch.placa}</span>
+                    <span><i class="fa-solid fa-phone me-1"></i>${ch.cel}</span>
+                </div>
+            </div>
+            <div id="badge-${ch.id}">${badgeHTML(ch.id)}</div>
+        `;
+        cont.appendChild(div);
+    });
+}
+
+function abrirModal(ch) {
+    modalChoferActual = ch;
+    const calActual = getCal(ch.id);
+    estrellaSeleccionada = calActual;
+
+    const ini = ch.nombre.split(' ').map(n=>n[0]).slice(0,2).join('');
+    document.getElementById('modal-avatar').textContent = ini;
+    document.getElementById('modal-nombre').textContent = ch.nombre;
+    document.getElementById('modal-placa').innerHTML = `<i class="fa-solid fa-car me-1"></i> Placa: ${ch.placa}`;
+    document.getElementById('modal-celular').innerHTML = `<i class="fa-solid fa-phone me-1"></i> Celular: ${ch.cel}`;
+    document.getElementById('texto-cal').textContent = calActual > 0 ? textos[calActual] : '';
+
+    const cont = document.getElementById('estrellas-modal');
+    cont.innerHTML = '';
+    for (let i = 1; i <= 5; i++) {
+        const s = document.createElement('span');
+        s.className = 'estrella-modal' + (i <= calActual ? ' activa' : '');
+        s.innerHTML = `<i class="fa-${i <= calActual ? 'solid' : 'regular'} fa-star"></i>`;
+        s.dataset.val = i;
+
+        s.addEventListener('mouseenter', () => {
+            const v = parseInt(s.dataset.val);
+            cont.querySelectorAll('.estrella-modal').forEach((x, idx) => {
+                x.classList.toggle('hover-prev', idx < v);
+                x.innerHTML = `<i class="fa-${idx < v ? 'solid' : 'regular'} fa-star"></i>`;
+            });
+            document.getElementById('texto-cal').textContent = textos[v];
+        });
+
+        s.addEventListener('mouseleave', () => {
+            cont.querySelectorAll('.estrella-modal').forEach((x, idx) => {
+                x.classList.remove('hover-prev');
+                x.classList.toggle('activa', idx < estrellaSeleccionada);
+                x.innerHTML = `<i class="fa-${idx < estrellaSeleccionada ? 'solid' : 'regular'} fa-star"></i>`;
+            });
+            document.getElementById('texto-cal').textContent = estrellaSeleccionada > 0 ? textos[estrellaSeleccionada] : '';
+        });
+
+        s.addEventListener('click', () => {
+            estrellaSeleccionada = parseInt(s.dataset.val);
+            cont.querySelectorAll('.estrella-modal').forEach((x, idx) => {
+                x.classList.toggle('activa', idx < estrellaSeleccionada);
+                x.innerHTML = `<i class="fa-${idx < estrellaSeleccionada ? 'solid' : 'regular'} fa-star"></i>`;
+            });
+            document.getElementById('texto-cal').textContent = textos[estrellaSeleccionada];
+            document.getElementById('btn-guardar').disabled = false;
+        });
+
+        cont.appendChild(s);
+    }
+
+    document.getElementById('btn-guardar').disabled = calActual === 0;
+    document.getElementById('modal').classList.add('abierto');
+}
+
+function cerrarModal() {
+    document.getElementById('modal').classList.remove('abierto');
+    modalChoferActual = null;
+    estrellaSeleccionada = 0;
+}
+
+function guardarDesdeModal() {
+    if (!modalChoferActual || estrellaSeleccionada === 0) return;
+    setCal(modalChoferActual.id, estrellaSeleccionada);
+
+    // Actualizar badge en la lista
+    document.getElementById('badge-' + modalChoferActual.id).innerHTML = badgeHTML(modalChoferActual.id);
+
+    // Toast
+    const toast = document.getElementById('toast');
+    document.getElementById('toast-txt').textContent =
+        `⭐ ${estrellaSeleccionada}/5 guardado para ${modalChoferActual.nombre.split(' ')[0]}`;
+    toast.classList.add('visible');
+    setTimeout(() => toast.classList.remove('visible'), 2500);
+
+    cerrarModal();
+}
+
+// Cerrar modal al hacer clic fuera
+document.getElementById('modal').addEventListener('click', e => {
+    if (e.target === document.getElementById('modal')) cerrarModal();
+});
+
+renderChoferes();
+</script>
+</body>
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HIJOS DE CRISTO REY - Carreras Privadas</title>
+
+    <!-- Bootstrap 5.3 y Font Awesome -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            background: radial-gradient(circle at top right, #f8f9fa 0%, #e9ecef 100%);
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+        }
+
+        .form-control:focus {
+            border-color: #6366f1;
+            box-shadow: 0 0 0 0.25rem rgba(99, 102, 241, 0.15);
+        }
+
+        .input-group-text {
+            background-color: #f8f9fa;
+            color: #64748b;
+            border-right: none;
+        }
+
+        .form-control {
+            border-left: none;
+        }
+    </style>
+</head>
+<body class="d-flex flex-column justify-content-between">
+
+    <!-- CONTENEDOR PRINCIPAL -->
+    <main class="container my-auto py-5" style="max-width: 600px;">
+        
+        <!-- ENLACE VOLVER AL MENÚ -->
+        <div class="mb-4">
+            <a href="menu.html" class="text-decoration-none fw-medium d-inline-flex align-items-center" style="color: #64748b; transition: color 0.2s;" onmouseover="this.style.color='#1e293b'" onmouseout="this.style.color='#64748b'">
+                <i class="fa-solid fa-arrow-left-long me-2"></i> Volver al panel principal
+            </a>
+        </div>
+
+        <!-- ENCABEZADO -->
+        <div class="text-center mb-4">
+            <div class="fs-1 mb-2" style="color: #6366f1;"><i class="fa-solid fa-car-side"></i></div>
+            <h1 class="fw-bold h2 mb-1" style="color: #1e293b;">Servicios Especiales</h1>
+            <p class="text-muted small text-uppercase tracking-wider mb-0" style="letter-spacing: 1px;">HIJOS DE CRISTO REY</p>
+        </div>
+
+        <!-- TARJETA DEL FORMULARIO -->
+        <div class="card shadow-sm border border-light p-4 p-md-5 bg-white" style="border-radius: 18px;">
+            <h2 class="h5 fw-bold mb-4 text-center text-md-start" style="color: #1e293b;">Solicitar una Carrera Privada</h2>
+
+            <form id="form-carreras">
+                
+                <!-- Campo: Origen -->
+                <div class="mb-3">
+                    <label for="origen" class="form-label small fw-medium text-secondary">¿Dónde inicia el viaje?</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fa-solid fa-location-dot"></i></span>
+                        <input type="text" class="form-control" id="origen" placeholder="Ingrese dirección de recogida" required>
+                    </div>
+                </div>
+
+                <!-- Campo: Destino -->
+                <div class="mb-3">
+                    <label for="destino" class="form-label small fw-medium text-secondary">¿Cuál es su destino?</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fa-solid fa-map-pin"></i></span>
+                        <input type="text" class="form-control" id="destino" placeholder="Ingrese dirección de destino" required>
+                    </div>
+                </div>
+
+                <!-- Campo: Monto -->
+                <div class="mb-4">
+                    <label for="monto" class="form-label small fw-medium text-secondary">¿Cuánto desea pagar?</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fa-solid fa-money-bill-wave"></i></span>
+                        <input type="number" class="form-control" id="monto" step="0.50" placeholder="Monto ofrecido (S/.)" required>
+                    </div>
+                </div>
+
+                <!-- BOTONES DE ACCIÓN -->
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-dark fw-medium py-25" style="border-radius: 10px; background-color: #1e293b;">
+                        <i class="fa-solid fa-paper-plane me-2"></i> Solicitar Carrera
+                    </button>
+                </div>
+
+            </form>
+
+            <!-- MENSAJE DE NOTIFICACIÓN (OCULTO POR DEFECTO) -->
+            <div id="mensaje" class="alert alert-success mt-4 mb-0 text-center shadow-sm" style="display: none; border-radius: 12px; background-color: #f0fdf4; border-color: #bbf7d0; color: #166534;">
+                <div class="fs-4 mb-1"><i class="fa-solid fa-circle-check"></i></div>
+                <div class="fw-bold">Solicitud enviada con éxito</div>
+                <div class="small text-secondary">Por favor, espere en línea la confirmación del conductor disponible.</div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Script de Bootstrap indispensable -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        document.getElementById("form-carreras").addEventListener("submit", function(event) {
+            event.preventDefault(); 
+
+            // Muestra la alerta elegante
+            document.getElementById("mensaje").style.display = "block";
+
+            // Captura los datos para la API en Python
+            const origen = document.getElementById("origen").value;
+            const destino = document.getElementById("destino").value;
+            const monto = document.getElementById("monto").value;
+
+            console.log("Datos capturados:", origen, destino, monto);
+           
+            fetch('http://127.0.0.1:5000/api/carreras', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    origen: origen,
+                    destino: destino,
+                    monto: monto
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if(data.status !== 'success') {
+                    alert('❌ Error del servidor: ' + data.mensaje);
+                }
+            })
+            .catch(error => {
+                console.error('Error de conexión:', error);
+                alert('⚠️ No se pudo conectar con el servidor.');
+            });
+
+            // Temporizador para resetear y limpiar
+            setTimeout(() => {
+                document.getElementById("form-carreras").reset();
+                document.getElementById("mensaje").style.display = "none";
+            }, 5000);
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Empresa de Transportes - Inicio</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body style="background: radial-gradient(circle at top right, #f8f9fa 0%, #e9ecef 100%); font-family: 'Poppins', sans-serif; min-height: 100vh;" class="d-flex flex-column justify-content-between">
+
+    <main class="container my-auto py-5">
+        <div class="row align-items-center g-5">
+            
+            <div class="col-lg-6 text-center text-lg-start">
+                <div class="bloque-bienvenida">
+                    <h1 class="display-4 fw-bold mb-2 tracking-wide" style="color: #1e293b;">
+                        <i class="fa-solid fa-van-shuttle me-2" style="color: #475569;"></i>HIJOS DE CRISTO REY
+                    </h1>
+                    <p class="lead text-muted text-uppercase tracking-widest small fw-semibold" style="letter-spacing: 3px;">
+                        Transporte seguro, rápido y confiable
+                    </p>
+                </div>
+
+                <div class="mt-4 mx-auto mx-lg-0" style="max-width: 380px;">
+                    
+                    <div id="opciones" class="d-flex justify-content-center justify-content-lg-start">
+                        <button class="btn btn-dark btn-lg px-4 me-3 fw-medium shadow" onclick="mostrarLogin()" style="border-radius: 8px;">
+                            Iniciar Sesión
+                        </button>
+                        <a href="registro.html" class="btn btn-outline-dark btn-lg px-4 fw-medium" style="border-radius: 8px;">
+                            Registrarse
+                        </a>
+                    </div>
+
+                    <div id="login" style="display:none;" class="bg-white p-4 rounded-3 shadow-lg border border-light text-start">
+                        <h3 class="h5 fw-semibold mb-3" style="color: #1e293b;">Ingresar al Sistema</h3>
+                        
+                        <form id="form-login">
+                            <input
+                                id="inputUsuario"
+                                type="text"
+                                class="form-control mb-3 bg-light text-dark border-light py-2 shadow-none"
+                                placeholder="Usuario o Correo electrónico"
+                                required
+                            >
+
+                            <input
+                                id="inputPassword"
+                                type="password"
+                                class="form-control mb-3 bg-light text-dark border-light py-2 shadow-none"
+                                placeholder="Contraseña"
+                                required
+                            >
+
+                            <button type="submit" class="btn btn-dark w-100 mb-2 fw-bold" style="border-radius: 6px;">
+                                Ingresar
+                            </button>
+                        </form>
+
+                        <button
+                            class="btn btn-sm btn-link text-muted w-100 text-decoration-none text-center"
+                            onclick="ocultarLogin()">
+                            <i class="fa-solid fa-arrow-left me-1"></i> Regresar
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-lg-6 text-center">
+                <div class="position-relative d-inline-block p-2 bg-white rounded-4 shadow-lg border border-light" style="max-width: 520px; width: 100%;">
+                    
+                  <img src="https://i.ibb.co/993PhRVF/van.jpg" alt="Unidad Hijos de Cristo Rey" class="img-fluid rounded-3" style="display: block; width: 100%; height: auto; object-fit: cover;">
+                    
+                  <span class="position-absolute bottom-0 start-0 m-4 badge bg-dark bg-opacity-75 border border-secondary border-opacity-25 px-3 py-2 fw-normal tracking-wide text-uppercase text-white shadow" style="font-size: 0.75rem; backdrop-filter: blur(4px);">
+                        <i class="fa-solid fa-circle text-success me-1" style="font-size: 0.6rem;"></i> Flota Monitoreada GPS
+                  </span>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="bg-white border-top border-light py-4 w-100 shadow-sm">
+        <section class="container">
+            <div class="row g-4 justify-content-center text-center text-md-start">
+                
+                <div class="col-md-4">
+                    <div class="p-2 h-100 d-md-flex align-items-start">
+                        <div class="text-dark fs-4 me-3 mb-2 mb-md-0"><i class="fa-solid fa-shield-halved" style="color: #475569;"></i></div>
+                        <div>
+                            <h2 class="h6 fw-bold mb-1" style="color: #1e293b;">Viaje Seguro</h2>
+                            <p class="text-muted small mb-0" style="font-size: 0.85rem;">Conductores profesionales estrictamente calificados.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="p-2 h-100 d-md-flex align-items-start">
+                        <div class="text-dark fs-4 me-3 mb-2 mb-md-0"><i class="fa-solid fa-bolt" style="color: #475569;"></i></div>
+                        <div>
+                            <h2 class="h6 fw-bold mb-1" style="color: #1e293b;">Máxima Rapidez</h2>
+                            <p class="text-muted small mb-0" style="font-size: 0.85rem;">Optimización inteligente de rutas diarias.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="p-2 h-100 d-md-flex align-items-start">
+                        <div class="text-dark fs-4 me-3 mb-2 mb-md-0"><i class="fa-solid fa-circle-check" style="color: #475569;"></i></div>
+                        <div>
+                            <h2 class="h6 fw-bold mb-1" style="color: #1e293b;">Alta Confiabilidad</h2>
+                            <p class="text-muted small mb-0" style="font-size: 0.85rem;">Respaldo total y puntualidad garantizada.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </footer>
+
+<script>
+function mostrarLogin() {
+    document.getElementById("opciones").classList.remove("d-flex");
+    document.getElementById("opciones").style.display = "none";
+    document.getElementById("login").style.display = "block";
+}
+
+function ocultarLogin() {
+    document.getElementById("login").style.display = "none";
+    document.getElementById("opciones").style.display = "block";
+    document.getElementById("opciones").classList.add("d-flex");
+}
+
+// CONTROLADOR PARA EL ENVÍO DE DATOS A TU SERVIDOR PYTHON
+document.getElementById("form-login").addEventListener("submit", function(event) {
+    event.preventDefault(); 
+
+    // Obtenemos los valores de los inputs reales del formulario
+    const usuarioIngresado = document.getElementById("inputUsuario").value.toLowerCase().trim();
+    const passwordIngresada = document.getElementById("inputPassword").value;
+
+    fetch('http://127.0.0.1:5000/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+            usuario: usuarioIngresado, 
+            password: passwordIngresada 
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'success') {
+            alert(data.mensaje);
+
+            // Lista oficial de correos administrativos
+            const admins = ['marco@gmail.com', 'fabrizzio@gmail.com', 'juan@gmail.com', 'marcos@gmail.com'];
+
+            // Comprobamos si el usuario introducido es administrador
+            if (admins.includes(usuarioIngresado)) {
+                window.location.href = "admin_menu.html";
+            } else {
+                window.location.href = "menu.html";
+            }
+        } else {
+            alert('❌ ' + data.mensaje);
+        }
+    })
+    .catch(error => {
+        console.error("Error:", error);
+        alert("Error de conexión con el servidor.");
+    });
+});
+</script>
+
+</body>
+</html>

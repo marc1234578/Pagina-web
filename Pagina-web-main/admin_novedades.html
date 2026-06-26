@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="UTF-8"><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"></head>
+<body class="bg-light p-5">
+<div class="container shadow card p-4 mb-3" style="max-width: 500px;">
+    <h4>Publicar Novedad</h4>
+    <form id="f-nov"><input type="text" id="nT" class="form-control mb-2" placeholder="Título" required><textarea id="nC" class="form-control mb-2" placeholder="Mensaje" required></textarea><button type="submit" class="btn btn-warning w-100">Subir</button></form>
+</div>
+<div class="container shadow card p-4" style="max-width: 500px;">
+    <h4 class="text-danger">Eliminar Novedad</h4>
+    <input type="number" id="eId" class="form-control mb-2" placeholder="ID Novedad"><button onclick="borrar()" class="btn btn-danger w-100 mb-2">Eliminar</button>
+    <a href="admin_menu.html" class="btn btn-secondary w-100">Volver</a>
+</div>
+<script>
+document.getElementById("f-nov").addEventListener("submit", function(e) {
+    e.preventDefault();
+    fetch('http://127.0.0.1:5000/api/admin/novedades', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ titulo: document.getElementById("nT").value, contenido: document.getElementById("nC").value })
+    }).then(res => res.json()).then(data => { alert(data.mensaje); document.getElementById("f-nov").reset(); });
+});
+function borrar() {
+    const id = document.getElementById("eId").value;
+    fetch(`http://127.0.0.1:5000/api/admin/novedades/${id}`, { method: 'DELETE' }).then(res => res.json()).then(data => alert(data.mensaje));
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HIJOS DE CRISTO REY - Registro de Usuario</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            background: radial-gradient(circle at top right, #f8f9fa 0%, #e9ecef 100%);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .contenedor {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .card-registro {
+            width: 100%;
+            max-width: 500px;
+            padding: 35px;
+            border-radius: 16px;
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .form-control:focus {
+            box-shadow: none;
+            border-color: #94a3b8;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="contenedor">
+
+    <div class="card shadow-lg card-registro">
+
+        <div class="text-center mb-4">
+            <div class="fs-2 mb-1" style="color: #475569;"><i class="fa-solid fa-van-shuttle"></i></div>
+            <h2 class="fw-bold h3 mb-1" style="color: #1e293b;">Crear Cuenta</h2>
+            <p class="text-muted small text-uppercase tracking-wider mb-0" style="letter-spacing: 1px;">HIJOS DE CRISTO REY</p>
+        </div>
+
+        <form id="form-registro">
+
+            <div class="mb-3">
+                <input type="text"
+                       id="regNombres"
+                       class="form-control bg-light py-2 border-light text-dark"
+                       placeholder="Nombres"
+                       required>
+            </div>
+
+            <div class="mb-3">
+                <input type="text"
+                       id="regApellidos"
+                       class="form-control bg-light py-2 border-light text-dark"
+                       placeholder="Apellidos"
+                       required>
+            </div>
+
+            <div class="mb-3">
+                <input type="tel"
+                       id="regTelefono"
+                       class="form-control bg-light py-2 border-light text-dark"
+                       placeholder="Teléfono o Celular"
+                       required>
+            </div>
+
+            <div class="mb-3">
+                <input type="email"
+                       id="regCorreo"
+                       class="form-control bg-light py-2 border-light text-dark"
+                       placeholder="Correo Electrónico"
+                       required>
+            </div>
+
+            <div class="mb-3">
+                <input type="password"
+                       id="regPassword"
+                       class="form-control bg-light py-2 border-light text-dark"
+                       placeholder="Contraseña"
+                       required>
+            </div>
+
+            <div class="mb-4">
+                <input type="password"
+                       id="regConfirmarPassword"
+                       class="form-control bg-light py-2 border-light text-dark"
+                       placeholder="Confirmar Contraseña"
+                       required>
+            </div>
+
+            <button type="submit"
+                    class="btn btn-dark w-100 mb-3 fw-bold py-2 shadow-sm" style="border-radius: 8px;">
+                Registrarse
+            </button>
+
+            <a href="index.html"
+               class="btn btn-link text-muted w-100 text-decoration-none text-center small">
+                <i class="fa-solid fa-arrow-left me-1"></i> Regresar al Inicio
+            </a>
+
+        </form>
+
+    </div>
+
+</div>
+
+<script>
+document.getElementById("form-registro").addEventListener("submit", function(event) {
+    event.preventDefault(); // Evita la recarga nativa y el error 405
+
+    const nombres = document.getElementById("regNombres").value;
+    const apellidos = document.getElementById("regApellidos").value;
+    const telefono = document.getElementById("regTelefono").value;
+    const correo = document.getElementById("regCorreo").value;
+    const password = document.getElementById("regPassword").value;
+    const confirmarPassword = document.getElementById("regConfirmarPassword").value;
+
+    // Validación básica de contraseñas idénticas
+    if (password !== confirmarPassword) {
+        alert("❌ Las contraseñas no coinciden. Por favor verifícalas.");
+        return;
+    }
+
+    // Petición asíncrona hacia tu servidor de Python
+    fetch('http://127.0.0.1:5000/api/registrar', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            nombres: nombres,
+            apellidos: apellidos,
+            telefono: telefono,
+            correo: correo,
+            password: password
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'success') {
+            alert('🎉 ¡Cuenta creada con éxito! Ahora puedes iniciar sesión.');
+            window.location.href = "index.html"; // Redirige al panel principal (Login)
+        } else {
+            alert('❌ Error: ' + data.mensaje);
+        }
+    })
+    .catch(error => {
+        console.error('Error de red:', error);
+        alert('⚠️ Error de comunicación. Verifica que app.py esté corriendo en tu terminal.');
+    });
+});
+</script>
+
+</body>
+</html>
