@@ -5,7 +5,7 @@ db_config = {
     'host': '127.0.0.1',
     'user': 'root',
     'password': 'admin',
-    'port': 3309,
+    'port': 3306,
     'database': 'bd_cristorey'
 }
 

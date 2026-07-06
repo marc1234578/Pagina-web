@@ -262,7 +262,7 @@
                     <th>Escolar</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="tarifas-bajada">
                 <tr>
                     <td><i class="fa-solid fa-route me-2" style="color:#f59e0b"></i>Ampliación II a Estación</td>
                     <td><span class="precio-adulto">S/ 2.00</span></td>
@@ -300,7 +300,7 @@
                     <th>Escolar</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="tarifas-subida">
                 <tr>
                     <td><i class="fa-solid fa-route me-2" style="color:#f59e0b"></i>Estación a Ampliación II</td>
                     <td><span class="precio-adulto">S/ 3.00</span></td>
@@ -338,5 +338,23 @@
     </div>
 
 </div>
+
+<script>
+async function cargarTarifasDesdeServidor() {
+    try {
+        const res = await fetch('http://127.0.0.1:5000/api/tarifas');
+        const data = await res.json();
+        if (data.status !== 'success' || !Array.isArray(data.datos) || !data.datos.length) return;
+        const bajada = data.datos.filter(t => String(t.tipo_ruta).toLowerCase() === 'bajada');
+        const subida = data.datos.filter(t => String(t.tipo_ruta).toLowerCase() === 'subida');
+        const fila = t => `<tr><td><i class="fa-solid fa-route me-2" style="color:#f59e0b"></i>${t.tramo}</td><td><span class="precio-adulto">S/ ${Number(t.adulto || 0).toFixed(2)}</span></td><td><span class="precio-escolar">S/ ${Number(t.escolar || 0).toFixed(2)}</span></td></tr>`;
+        if (bajada.length) document.getElementById('tarifas-bajada').innerHTML = bajada.map(fila).join('');
+        if (subida.length) document.getElementById('tarifas-subida').innerHTML = subida.map(fila).join('');
+    } catch (error) {
+        console.warn('No se pudo cargar tarifas desde la base de datos. Se mostrará el tarifario local.', error);
+    }
+}
+cargarTarifasDesdeServidor();
+</script>
 </body>
 </html>

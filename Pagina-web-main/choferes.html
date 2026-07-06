@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="./css/styles.css">
     <style>
         body.body-choferes {
-            background-image: url('./imagenes/carro.jpeg');
+            background-image: url('./imagenes/van.jpeg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -333,7 +333,7 @@
 <div id="toast"><i class="fa-solid fa-check-circle me-2"></i><span id="toast-txt"></span></div>
 
 <script>
-const choferes = [
+let choferes = [
     { id:  1, nombre: "Carlos Mamani Quispe",     placa: "ABC-123", cel: "71234567" },
     { id:  2, nombre: "Juan Flores Condori",       placa: "XYZ-456", cel: "72345678" },
     { id:  3, nombre: "Pedro Ticona Huanca",       placa: "DEF-789", cel: "73456789" },
@@ -498,6 +498,26 @@ document.getElementById('modal').addEventListener('click', e => {
 });
 
 renderChoferes();
+
+async function cargarChoferesDesdeServidor() {
+    try {
+        const res = await fetch('http://127.0.0.1:5000/api/choferes');
+        const data = await res.json();
+        if (data.status === 'success' && Array.isArray(data.datos) && data.datos.length) {
+            choferes = data.datos.map(ch => ({
+                id: ch.id,
+                nombre: ch.nombre,
+                placa: ch.placa || 'Sin placa',
+                cel: ch.cel || 'Sin celular'
+            }));
+            renderChoferes();
+        }
+    } catch (error) {
+        console.warn('No se pudo cargar choferes desde la base de datos. Se usará la lista local.', error);
+    }
+}
+
+cargarChoferesDesdeServidor();
 </script>
 </body>
 </html>

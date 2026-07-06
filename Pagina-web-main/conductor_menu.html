@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal del Conductor - Hijos de Cristo Rey</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/admin.css">
+</head>
+<body class="conductor-body">
+<div class="conductor-wrapper">
+    <section class="conductor-hero d-flex flex-column flex-md-row justify-content-between gap-3 align-items-md-center">
+        <div>
+            <div class="page-eyebrow" style="color:#fbbf24;">Portal del conductor</div>
+            <h1><i class="fa-solid fa-car-side me-2"></i>Mis carreras y perfil</h1>
+            <p>Acepta carreras privadas disponibles y actualiza únicamente tus datos de contacto.</p>
+        </div>
+        <div class="action-row">
+            <a class="btn-soft" href="admin_menu.html" id="btnAdmin" style="display:none;"><i class="fa-solid fa-user-shield"></i>Volver admin</a>
+            <a class="btn-danger-soft" href="index.html" onclick="cerrarSesion()"><i class="fa-solid fa-right-from-bracket"></i>Cerrar sesión</a>
+        </div>
+    </section>
+
+    <section class="conductor-grid">
+        <aside class="conductor-card">
+            <div class="profile-avatar" id="avatar">C</div>
+            <h2 class="h4 fw-bold mb-1" id="nombreChofer">Conductor</h2>
+            <p class="text-muted mb-3" id="detalleChofer">Cargando perfil...</p>
+
+            <form id="formPerfil">
+                <div class="mb-3"><label class="form-label">Teléfono</label><input class="form-control" id="telefono" required></div>
+                <div class="mb-3"><label class="form-label">Correo</label><input class="form-control" id="correo" type="email" required></div>
+                <div class="mb-3"><label class="form-label">Nueva contraseña</label><input class="form-control" id="password" type="password" placeholder="Déjalo vacío si no deseas cambiarla"></div>
+                <button class="btn-main w-100" type="submit"><i class="fa-solid fa-floppy-disk"></i>Guardar datos</button>
+            </form>
+        </aside>
+
+        <main>
+            <section class="data-panel">
+                <div class="panel-heading">
+                    <h2><i class="fa-solid fa-bell me-2"></i>Carreras disponibles</h2>
+                    <button class="btn-soft" onclick="cargarCarrerasDisponibles()"><i class="fa-solid fa-rotate"></i>Actualizar</button>
+                </div>
+                <div class="table-responsive">
+                    <table class="table-professional">
+                        <thead><tr><th>ID</th><th>Cliente</th><th>Origen</th><th>Destino</th><th>Monto</th><th>Acción</th></tr></thead>
+                        <tbody id="tablaDisponibles"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="data-panel">
+                <div class="panel-heading"><h2><i class="fa-solid fa-clock-rotate-left me-2"></i>Mis carreras aceptadas</h2></div>
+                <div class="table-responsive">
+                    <table class="table-professional">
+                        <thead><tr><th>ID</th><th>Cliente</th><th>Origen</th><th>Destino</th><th>Monto</th><th>Estado</th></tr></thead>
+                        <tbody id="tablaMias"></tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </section>
+</div>
+
+<div class="toast-admin" id="toast"></div>
+<script>
+const API = 'http://127.0.0.1:5000';
+let conductorId = localStorage.getItem('session_id');
+let tipo = localStorage.getItem('session_tipo');
+function toast(msg) { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'), 3200); }
+function money(v) { return `S/ ${Number(v || 0).toFixed(2)}`; }
+function cerrarSesion(){ localStorage.removeItem('session_id'); localStorage.removeItem('session_tipo'); localStorage.removeItem('session_nombre'); }
+function filaVacia(colspan, icon, msg) { return `<tr><td colspan="${colspan}"><div class="empty-state"><i class="fa-solid ${icon}"></i>${msg}</div></td></tr>`; }
+function validarSesion() {
+    if (tipo === 'admin') document.getElementById('btnAdmin').style.display = 'inline-flex';
+    if (!conductorId || (tipo !== 'conductor' && tipo !== 'admin')) {
+        document.querySelector('.conductor-grid').innerHTML = `<div class="data-panel"><div class="empty-state"><i class="fa-solid fa-lock"></i>Debes iniciar sesión como conductor para usar este portal.<br><br><a class="btn-main" href="index.html">Iniciar sesión</a></div></div>`;
+        return false;
+    }
+    return true;
+}
+async function cargarPerfil() {
+    try {
+        const res = await fetch(`${API}/api/conductor/${conductorId}/perfil`);
+        const data = await res.json();
+        if (data.status !== 'success') throw new Error(data.mensaje);
+        const p = data.datos;
+        const iniciales = `${p.nombres?.[0] || 'C'}${p.apellidos?.[0] || ''}`.toUpperCase();
+        document.getElementById('avatar').textContent = iniciales;
+        document.getElementById('nombreChofer').textContent = `${p.nombres} ${p.apellidos}`;
+        document.getElementById('detalleChofer').innerHTML = `<i class="fa-solid fa-car me-1"></i> Placa ${p.placa || '-'} · ${p.estado || '-'}`;
+        document.getElementById('telefono').value = p.telefono || '';
+        document.getElementById('correo').value = p.correo || '';
+    } catch (e) { toast('Error: ' + e.message); }
+}
+async function cargarCarrerasDisponibles() {
+    try {
+        const res = await fetch(`${API}/api/conductor/carreras`);
+        const data = await res.json();
+        if (data.status !== 'success') throw new Error(data.mensaje);
+        const carreras = data.datos || [];
+        const tbody = document.getElementById('tablaDisponibles');
+        if (!carreras.length) { tbody.innerHTML = filaVacia(6, 'fa-circle-check', 'No hay carreras pendientes por ahora.'); return; }
+        tbody.innerHTML = carreras.map(c => `
+            <tr>
+                <td class="fw-bold">#${c.id_solicitud}</td>
+                <td><div>${c.nombre_cliente || 'Cliente'}</div><div class="text-muted small">${c.telefono_cliente || '-'}</div></td>
+                <td>${c.direccion_origen}</td>
+                <td>${c.direccion_destino}</td>
+                <td class="fw-bold">${money(c.monto_ofrecido)}</td>
+                <td><button class="btn-success-soft" onclick="aceptarCarrera(${c.id_solicitud})"><i class="fa-solid fa-check"></i>Aceptar</button></td>
+            </tr>`).join('');
+    } catch (e) { toast('Error: ' + e.message); }
+}
+async function cargarMisCarreras() {
+    try {
+        const res = await fetch(`${API}/api/conductor/${conductorId}/mis-carreras`);
+        const data = await res.json();
+        if (data.status !== 'success') throw new Error(data.mensaje);
+        const carreras = data.datos || [];
+        const tbody = document.getElementById('tablaMias');
+        if (!carreras.length) { tbody.innerHTML = filaVacia(6, 'fa-route', 'Aún no has aceptado carreras.'); return; }
+        tbody.innerHTML = carreras.map(c => `
+            <tr>
+                <td class="fw-bold">#${c.id_solicitud}</td>
+                <td><div>${c.nombre_cliente || 'Cliente'}</div><div class="text-muted small">${c.telefono_cliente || '-'}</div></td>
+                <td>${c.direccion_origen}</td>
+                <td>${c.direccion_destino}</td>
+                <td class="fw-bold">${money(c.monto_ofrecido)}</td>
+                <td><span class="badge-soft badge-aceptada">${c.estado_solicitud}</span></td>
+            </tr>`).join('');
+    } catch (e) { toast('Error: ' + e.message); }
+}
+async function aceptarCarrera(id) {
+    if (!confirm('¿Aceptar esta carrera privada?')) return;
+    const res = await fetch(`${API}/api/conductor/carreras/${id}/aceptar`, { method:'PUT', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ chofer_id: conductorId }) });
+    const data = await res.json();
+    toast(data.mensaje);
+    cargarCarrerasDisponibles();
+    cargarMisCarreras();
+}
+document.getElementById('formPerfil').addEventListener('submit', async e => {
+    e.preventDefault();
+    const payload = { telefono: document.getElementById('telefono').value.trim(), correo: document.getElementById('correo').value.trim(), password: document.getElementById('password').value.trim() };
+    const res = await fetch(`${API}/api/conductor/${conductorId}/perfil`, { method:'PUT', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload) });
+    const data = await res.json();
+    toast(data.mensaje);
+    if (data.status === 'success') document.getElementById('password').value = '';
+});
+if (validarSesion()) { cargarPerfil(); cargarCarrerasDisponibles(); cargarMisCarreras(); }
+</script>
+</body>
+</html>

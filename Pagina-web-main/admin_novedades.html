@@ -1,29 +1,100 @@
 <!DOCTYPE html>
 <html lang="es">
-<head><meta charset="UTF-8"><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"></head>
-<body class="bg-light p-5">
-<div class="container shadow card p-4 mb-3" style="max-width: 500px;">
-    <h4>Publicar Novedad</h4>
-    <form id="f-nov"><input type="text" id="nT" class="form-control mb-2" placeholder="Título" required><textarea id="nC" class="form-control mb-2" placeholder="Mensaje" required></textarea><button type="submit" class="btn btn-warning w-100">Subir</button></form>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrar Novedades</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/admin.css">
+</head>
+<body class="admin-body">
+<div class="admin-shell">
+    <aside class="sidebar">
+        <div class="brand-box"><div class="brand-icon"><i class="fa-solid fa-van-shuttle"></i></div><div><div class="brand-title">Hijos de<br>Cristo Rey</div><div class="brand-subtitle">Panel administrativo</div></div></div>
+        <nav class="nav-admin">
+            <a href="admin_menu.html"><i class="fa-solid fa-chart-pie"></i>Resumen</a>
+            <a href="admin_tarifas.html"><i class="fa-solid fa-wallet"></i>Tarifas</a>
+            <a href="admin_choferes.html"><i class="fa-solid fa-id-card"></i>Choferes</a>
+            <a href="admin_novedades.html" class="active"><i class="fa-solid fa-bullhorn"></i>Novedades</a>
+            <a href="admin_quejas.html"><i class="fa-solid fa-inbox"></i>Quejas</a>
+            <a href="admin_carreras.html"><i class="fa-solid fa-route"></i>Carreras privadas</a>
+        </nav>
+        <div class="sidebar-footer"><a class="logout-btn" href="index.html"><i class="fa-solid fa-right-from-bracket"></i>Cerrar sesión</a></div>
+    </aside>
+
+    <main class="admin-main">
+        <section class="topbar">
+            <div>
+                <div class="page-eyebrow">Comunicados</div>
+                <h1 class="page-title">Novedades y avisos</h1>
+                <p class="page-desc">Publica avisos para usuarios y elimina novedades desde la tabla, sin escribir ID.</p>
+            </div>
+        </section>
+
+        <section class="form-panel">
+            <div class="panel-heading"><h2><i class="fa-solid fa-pen-to-square me-2"></i>Publicar nueva novedad</h2></div>
+            <form id="formNovedad" class="row g-3">
+                <div class="col-md-4"><label class="form-label">Título</label><input class="form-control" id="titulo" required placeholder="Ej.: Nuevo horario"></div>
+                <div class="col-md-8"><label class="form-label">Contenido</label><input class="form-control" id="contenido" required placeholder="Escribe el comunicado para los usuarios"></div>
+                <div class="col-12"><button class="btn-main" type="submit"><i class="fa-solid fa-paper-plane"></i>Publicar aviso</button></div>
+            </form>
+        </section>
+
+        <section class="data-panel">
+            <div class="panel-heading">
+                <h2><i class="fa-solid fa-list me-2"></i>Novedades publicadas</h2>
+                <button class="btn-soft" onclick="cargarNovedades()"><i class="fa-solid fa-rotate"></i>Actualizar</button>
+            </div>
+            <div class="table-responsive">
+                <table class="table-professional">
+                    <thead><tr><th>ID</th><th>Título</th><th>Contenido</th><th>Fecha</th><th>Acciones</th></tr></thead>
+                    <tbody id="tablaNovedades"></tbody>
+                </table>
+            </div>
+        </section>
+    </main>
 </div>
-<div class="container shadow card p-4" style="max-width: 500px;">
-    <h4 class="text-danger">Eliminar Novedad</h4>
-    <input type="number" id="eId" class="form-control mb-2" placeholder="ID Novedad"><button onclick="borrar()" class="btn btn-danger w-100 mb-2">Eliminar</button>
-    <a href="admin_menu.html" class="btn btn-secondary w-100">Volver</a>
-</div>
+<div class="toast-admin" id="toast"></div>
 <script>
-document.getElementById("f-nov").addEventListener("submit", function(e) {
-    e.preventDefault();
-    fetch('http://127.0.0.1:5000/api/admin/novedades', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({ titulo: document.getElementById("nT").value, contenido: document.getElementById("nC").value })
-    }).then(res => res.json()).then(data => { alert(data.mensaje); document.getElementById("f-nov").reset(); });
-});
-function borrar() {
-    const id = document.getElementById("eId").value;
-    fetch(`http://127.0.0.1:5000/api/admin/novedades/${id}`, { method: 'DELETE' }).then(res => res.json()).then(data => alert(data.mensaje));
+const API = 'http://127.0.0.1:5000';
+function toast(msg) { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'), 3200); }
+function filaVacia(msg) { return `<tr><td colspan="5"><div class="empty-state"><i class="fa-solid fa-bullhorn"></i>${msg}</div></td></tr>`; }
+async function cargarNovedades() {
+    try {
+        const res = await fetch(`${API}/api/admin/novedades`);
+        const data = await res.json();
+        if (data.status !== 'success') throw new Error(data.mensaje);
+        const novedades = data.datos || [];
+        const tbody = document.getElementById('tablaNovedades');
+        if (!novedades.length) { tbody.innerHTML = filaVacia('No hay novedades publicadas.'); return; }
+        tbody.innerHTML = novedades.map(n => `
+            <tr>
+                <td class="fw-bold">#${n.id}</td>
+                <td class="fw-bold">${n.titulo}</td>
+                <td>${n.contenido}</td>
+                <td>${n.fecha_publicacion ? new Date(n.fecha_publicacion).toLocaleString() : '-'}</td>
+                <td><button class="btn-danger-soft" onclick="eliminarNovedad(${n.id})"><i class="fa-solid fa-trash"></i>Eliminar</button></td>
+            </tr>`).join('');
+    } catch (e) { toast('Error: ' + e.message); }
 }
+async function eliminarNovedad(id) {
+    if (!confirm('¿Eliminar esta novedad?')) return;
+    const res = await fetch(`${API}/api/admin/novedades/${id}`, { method: 'DELETE' });
+    const data = await res.json();
+    toast(data.mensaje);
+    cargarNovedades();
+}
+document.getElementById('formNovedad').addEventListener('submit', async e => {
+    e.preventDefault();
+    const payload = { titulo: document.getElementById('titulo').value.trim(), contenido: document.getElementById('contenido').value.trim() };
+    const res = await fetch(`${API}/api/admin/novedades`, { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(payload) });
+    const data = await res.json();
+    toast(data.mensaje);
+    if (data.status === 'success') { e.target.reset(); cargarNovedades(); }
+});
+cargarNovedades();
 </script>
 </body>
 </html>

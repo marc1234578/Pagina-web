@@ -59,6 +59,7 @@
                             <button type="submit" class="btn btn-dark w-100 mb-2 fw-bold" style="border-radius: 6px;">
                                 Ingresar
                             </button>
+                            <p class="text-muted small mb-2 text-center">El mismo acceso reconoce usuario, administrador o conductor.</p>
                         </form>
 
                         <button
@@ -157,12 +158,14 @@ document.getElementById("form-login").addEventListener("submit", function(event)
         if (data.status === 'success') {
             alert(data.mensaje);
 
-            // Lista oficial de correos administrativos
-            const admins = ['marco@gmail.com', 'fabrizzio@gmail.com', 'juan@gmail.com', 'marcos@gmail.com'];
+            localStorage.setItem('session_id', data.datos.id);
+            localStorage.setItem('session_tipo', data.datos.tipo);
+            localStorage.setItem('session_nombre', data.datos.nombre || '');
 
-            // Comprobamos si el usuario introducido es administrador
-            if (admins.includes(usuarioIngresado)) {
+            if (data.datos.tipo === 'admin') {
                 window.location.href = "admin_menu.html";
+            } else if (data.datos.tipo === 'conductor') {
+                window.location.href = "conductor_menu.html";
             } else {
                 window.location.href = "menu.html";
             }

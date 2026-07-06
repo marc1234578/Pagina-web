@@ -1,25 +1,156 @@
 <!DOCTYPE html>
 <html lang="es">
-<head><meta charset="UTF-8"><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"></head>
-<body class="bg-light p-5">
-<div class="container card shadow p-4" style="max-width: 400px;">
-    <h4>Actualizar Tarifas</h4>
-    <form id="f-tarifa">
-        <input type="number" id="tId" class="form-control mb-3" placeholder="ID de la ruta" required>
-        <input type="number" step="0.10" id="tMonto" class="form-control mb-3" placeholder="Nuevo Monto (S/)" required>
-        <button type="submit" class="btn btn-primary w-100 mb-2">Guardar</button>
-        <a href="admin_menu.html" class="btn btn-secondary w-100">Volver</a>
-    </form>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrar Tarifas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/admin.css">
+</head>
+<body class="admin-body">
+<div class="admin-shell">
+    <aside class="sidebar">
+        <div class="brand-box"><div class="brand-icon"><i class="fa-solid fa-van-shuttle"></i></div><div><div class="brand-title">Hijos de<br>Cristo Rey</div><div class="brand-subtitle">Panel administrativo</div></div></div>
+        <nav class="nav-admin">
+            <a href="admin_menu.html"><i class="fa-solid fa-chart-pie"></i>Resumen</a>
+            <a href="admin_tarifas.html" class="active"><i class="fa-solid fa-wallet"></i>Tarifas</a>
+            <a href="admin_choferes.html"><i class="fa-solid fa-id-card"></i>Choferes</a>
+            <a href="admin_novedades.html"><i class="fa-solid fa-bullhorn"></i>Novedades</a>
+            <a href="admin_quejas.html"><i class="fa-solid fa-inbox"></i>Quejas</a>
+            <a href="admin_carreras.html"><i class="fa-solid fa-route"></i>Carreras privadas</a>
+        </nav>
+        <div class="sidebar-footer"><a class="logout-btn" href="index.html"><i class="fa-solid fa-right-from-bracket"></i>Cerrar sesión</a></div>
+    </aside>
+
+    <main class="admin-main">
+        <section class="topbar">
+            <div>
+                <div class="page-eyebrow">Tarifario oficial</div>
+                <h1 class="page-title">Gestión de tarifas</h1>
+                <p class="page-desc">Aquí se muestran todas las tarifas registradas. Edita directamente desde el botón de cada fila.</p>
+            </div>
+            <button class="btn-main" data-bs-toggle="modal" data-bs-target="#modalTarifa" onclick="abrirCrear()"><i class="fa-solid fa-plus"></i>Nueva tarifa</button>
+        </section>
+
+        <section class="data-panel">
+            <div class="panel-heading">
+                <h2><i class="fa-solid fa-table-list me-2"></i>Tarifas registradas</h2>
+                <button class="btn-soft" onclick="cargarTarifas()"><i class="fa-solid fa-rotate"></i>Actualizar</button>
+            </div>
+            <div class="table-responsive">
+                <table class="table-professional">
+                    <thead><tr><th>ID</th><th>Tramo</th><th>Ruta</th><th>Adulto</th><th>Escolar</th><th>Estado</th><th>Acciones</th></tr></thead>
+                    <tbody id="tablaTarifas"></tbody>
+                </table>
+            </div>
+        </section>
+    </main>
 </div>
+
+<div class="modal fade" id="modalTarifa" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <form class="modal-content" id="formTarifa" style="border-radius: 22px; border:0;">
+            <div class="modal-header border-0 pb-0">
+                <h5 class="modal-title fw-bold" id="modalTitulo">Nueva tarifa</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="tarifaId">
+                <div class="mb-3"><label class="form-label">Tramo</label><input class="form-control" id="tramo" required placeholder="Ej.: Estación a Nueva Luz"></div>
+                <div class="row g-3">
+                    <div class="col-md-6"><label class="form-label">Tipo de ruta</label><select class="form-select" id="tipoRuta"><option>Bajada</option><option>Subida</option></select></div>
+                    <div class="col-md-6"><label class="form-label">Estado</label><select class="form-select" id="estado"><option>Activo</option><option>Inactivo</option></select></div>
+                    <div class="col-md-6"><label class="form-label">Adulto S/</label><input class="form-control" id="adulto" type="number" step="0.10" min="0" required></div>
+                    <div class="col-md-6"><label class="form-label">Escolar S/</label><input class="form-control" id="escolar" type="number" step="0.10" min="0" required></div>
+                </div>
+            </div>
+            <div class="modal-footer border-0 pt-0">
+                <button type="button" class="btn-soft" data-bs-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn-main"><i class="fa-solid fa-floppy-disk"></i>Guardar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="toast-admin" id="toast"></div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-document.getElementById("f-tarifa").addEventListener("submit", function(e) {
+const API = 'http://127.0.0.1:5000';
+let tarifas = [];
+let modal;
+function toast(msg) { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'), 3200); }
+function money(v) { return `S/ ${Number(v || 0).toFixed(2)}`; }
+function badgeEstado(estado) { const key = String(estado || '').toLowerCase(); return `<span class="badge-soft ${key === 'activo' ? 'badge-activo' : 'badge-default'}">${estado || 'Sin estado'}</span>`; }
+function filaVacia(msg) { return `<tr><td colspan="7"><div class="empty-state"><i class="fa-solid fa-folder-open"></i>${msg}</div></td></tr>`; }
+async function cargarTarifas() {
+    try {
+        const res = await fetch(`${API}/api/admin/tarifas`);
+        const data = await res.json();
+        if (data.status !== 'success') throw new Error(data.mensaje);
+        tarifas = data.datos || [];
+        const tbody = document.getElementById('tablaTarifas');
+        if (!tarifas.length) { tbody.innerHTML = filaVacia('No hay tarifas registradas todavía.'); return; }
+        tbody.innerHTML = tarifas.map(t => `
+            <tr>
+                <td class="fw-bold">#${t.id}</td>
+                <td>${t.tramo}</td>
+                <td>${t.tipo_ruta}</td>
+                <td class="fw-bold">${money(t.adulto)}</td>
+                <td>${money(t.escolar)}</td>
+                <td>${badgeEstado(t.estado)}</td>
+                <td>
+                    <div class="action-row">
+                        <button class="btn-soft" onclick="abrirEditar(${t.id})"><i class="fa-solid fa-pen"></i>Editar</button>
+                        <button class="btn-danger-soft" onclick="eliminarTarifa(${t.id})"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                </td>
+            </tr>`).join('');
+    } catch (e) { toast('Error: ' + e.message); }
+}
+function abrirCrear() {
+    document.getElementById('modalTitulo').textContent = 'Nueva tarifa';
+    document.getElementById('formTarifa').reset();
+    document.getElementById('tarifaId').value = '';
+}
+function abrirEditar(id) {
+    const t = tarifas.find(x => Number(x.id) === Number(id));
+    if (!t) return;
+    document.getElementById('modalTitulo').textContent = 'Editar tarifa #' + id;
+    document.getElementById('tarifaId').value = t.id;
+    document.getElementById('tramo').value = t.tramo || '';
+    document.getElementById('tipoRuta').value = t.tipo_ruta || 'Bajada';
+    document.getElementById('adulto').value = t.adulto || 0;
+    document.getElementById('escolar').value = t.escolar || 0;
+    document.getElementById('estado').value = t.estado || 'Activo';
+    modal.show();
+}
+async function eliminarTarifa(id) {
+    if (!confirm('¿Eliminar esta tarifa?')) return;
+    const res = await fetch(`${API}/api/admin/tarifas/${id}`, { method: 'DELETE' });
+    const data = await res.json();
+    toast(data.mensaje);
+    cargarTarifas();
+}
+document.getElementById('formTarifa').addEventListener('submit', async e => {
     e.preventDefault();
-    fetch('http://127.0.0.1:5000/api/admin/tarifas', {
-        method: 'PUT',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({ id: document.getElementById("tId").value, monto: document.getElementById("tMonto").value })
-    }).then(res => res.json()).then(data => alert(data.mensaje));
+    const id = document.getElementById('tarifaId').value;
+    const payload = {
+        tramo: document.getElementById('tramo').value.trim(),
+        tipo_ruta: document.getElementById('tipoRuta').value,
+        adulto: document.getElementById('adulto').value,
+        escolar: document.getElementById('escolar').value,
+        estado: document.getElementById('estado').value
+    };
+    const url = id ? `${API}/api/admin/tarifas/${id}` : `${API}/api/admin/tarifas`;
+    const method = id ? 'PUT' : 'POST';
+    const res = await fetch(url, { method, headers: {'Content-Type': 'application/json'}, body: JSON.stringify(payload) });
+    const data = await res.json();
+    toast(data.mensaje);
+    if (data.status === 'success') { modal.hide(); cargarTarifas(); }
 });
+document.addEventListener('DOMContentLoaded', () => { modal = new bootstrap.Modal(document.getElementById('modalTarifa')); cargarTarifas(); });
 </script>
 </body>
 </html>

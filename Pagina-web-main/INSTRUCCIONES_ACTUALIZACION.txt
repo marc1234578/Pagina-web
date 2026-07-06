@@ -1,0 +1,31 @@
+CAMBIOS REALIZADOS
+==================
+1. Se corrigió menu.html.
+2. El menú de usuario ahora usa el mismo estilo profesional del panel admin.
+3. Se agregó barra lateral oscura, tarjetas de resumen y tarjetas de módulos iguales al diseño del admin.
+4. Se mantuvieron las opciones de usuario:
+   - Choferes
+   - Rutas
+   - Tarifas
+   - Novedades
+   - Carreras privadas
+   - Quejas / Ayuda
+5. Se mantuvo el panel de admin y el portal del conductor sin romper la lógica del sistema.
+
+CÓMO PRENDER LA APP
+===================
+1. Abre la carpeta Pagina-web-main en Visual Studio Code.
+2. Abre una terminal dentro de esa carpeta.
+3. Instala dependencias si todavía no las tienes:
+   pip install flask flask-cors mysql-connector-python
+4. Verifica que MySQL esté encendido.
+5. Revisa db.py. Actualmente está configurado así:
+   host: 127.0.0.1
+   user: root
+   password: admin
+   port: 3309
+   database: bd_cristorey
+6. Si tu MySQL usa otro puerto o contraseña, cámbialo en db.py.
+7. Ejecuta:
+   python app.py
+8. Luego abre index.html en el navegador o entra al sistema desde tu pantalla principal.

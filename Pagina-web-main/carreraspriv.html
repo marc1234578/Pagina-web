@@ -58,6 +58,23 @@
 
             <form id="form-carreras">
                 
+                <div class="row g-3 mb-1">
+                    <div class="col-md-6">
+                        <label for="nombreCliente" class="form-label small fw-medium text-secondary">Nombre del cliente</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fa-solid fa-user"></i></span>
+                            <input type="text" class="form-control" id="nombreCliente" placeholder="Ingrese su nombre">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="telefonoCliente" class="form-label small fw-medium text-secondary">Teléfono de contacto</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fa-solid fa-phone"></i></span>
+                            <input type="text" class="form-control" id="telefonoCliente" placeholder="Ingrese su celular">
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Campo: Origen -->
                 <div class="mb-3">
                     <label for="origen" class="form-label small fw-medium text-secondary">¿Dónde inicia el viaje?</label>
@@ -119,6 +136,8 @@
             const origen = document.getElementById("origen").value;
             const destino = document.getElementById("destino").value;
             const monto = document.getElementById("monto").value;
+            const nombreCliente = document.getElementById("nombreCliente").value;
+            const telefonoCliente = document.getElementById("telefonoCliente").value;
 
             console.log("Datos capturados:", origen, destino, monto);
            
@@ -130,7 +149,9 @@
                 body: JSON.stringify({
                     origen: origen,
                     destino: destino,
-                    monto: monto
+                    monto: monto,
+                    nombre_cliente: nombreCliente,
+                    telefono_cliente: telefonoCliente
                 })
             })
             .then(response => response.json())

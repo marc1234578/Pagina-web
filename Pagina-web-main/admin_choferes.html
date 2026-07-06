@@ -1,28 +1,178 @@
 <!DOCTYPE html>
 <html lang="es">
-<head><meta charset="UTF-8"><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"></head>
-<body class="bg-light p-5">
-<div class="container card shadow p-4" style="max-width: 400px;">
-    <h4>Estado del Chofer</h4>
-    <form id="f-chofer">
-        <input type="number" id="cId" class="form-control mb-3" placeholder="ID del Chofer" required>
-        <select id="cEstado" class="form-select mb-3">
-            <option value="Activo">Activo</option>
-            <option value="Suspendido">Suspendido</option>
-        </select>
-        <button type="submit" class="btn btn-success w-100 mb-2">Actualizar</button>
-        <a href="admin_menu.html" class="btn btn-secondary w-100">Volver</a>
-    </form>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrar Choferes</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/admin.css">
+</head>
+<body class="admin-body">
+<div class="admin-shell">
+    <aside class="sidebar">
+        <div class="brand-box"><div class="brand-icon"><i class="fa-solid fa-van-shuttle"></i></div><div><div class="brand-title">Hijos de<br>Cristo Rey</div><div class="brand-subtitle">Panel administrativo</div></div></div>
+        <nav class="nav-admin">
+            <a href="admin_menu.html"><i class="fa-solid fa-chart-pie"></i>Resumen</a>
+            <a href="admin_tarifas.html"><i class="fa-solid fa-wallet"></i>Tarifas</a>
+            <a href="admin_choferes.html" class="active"><i class="fa-solid fa-id-card"></i>Choferes</a>
+            <a href="admin_novedades.html"><i class="fa-solid fa-bullhorn"></i>Novedades</a>
+            <a href="admin_quejas.html"><i class="fa-solid fa-inbox"></i>Quejas</a>
+            <a href="admin_carreras.html"><i class="fa-solid fa-route"></i>Carreras privadas</a>
+        </nav>
+        <div class="sidebar-footer"><a class="logout-btn" href="index.html"><i class="fa-solid fa-right-from-bracket"></i>Cerrar sesión</a></div>
+    </aside>
+
+    <main class="admin-main">
+        <section class="topbar">
+            <div>
+                <div class="page-eyebrow">Padrón general</div>
+                <h1 class="page-title">Choferes registrados</h1>
+                <p class="page-desc">Ya no necesitas escribir ID: edita, activa o suspende desde cada fila del padrón.</p>
+            </div>
+            <button class="btn-main" data-bs-toggle="modal" data-bs-target="#modalChofer" onclick="abrirCrear()"><i class="fa-solid fa-user-plus"></i>Nuevo chofer</button>
+        </section>
+
+        <section class="data-panel">
+            <div class="panel-heading">
+                <h2><i class="fa-solid fa-address-card me-2"></i>Padrón de conductores</h2>
+                <button class="btn-soft" onclick="cargarChoferes()"><i class="fa-solid fa-rotate"></i>Actualizar</button>
+            </div>
+            <div class="table-responsive">
+                <table class="table-professional">
+                    <thead><tr><th>ID</th><th>Conductor</th><th>Contacto</th><th>Placa</th><th>Licencia</th><th>Estado</th><th>Acciones</th></tr></thead>
+                    <tbody id="tablaChoferes"></tbody>
+                </table>
+            </div>
+        </section>
+    </main>
 </div>
+
+<div class="modal fade" id="modalChofer" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <form class="modal-content" id="formChofer" style="border-radius: 22px; border:0;">
+            <div class="modal-header border-0 pb-0">
+                <h5 class="modal-title fw-bold" id="modalTitulo">Nuevo chofer</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="choferId">
+                <div class="row g-3">
+                    <div class="col-md-6"><label class="form-label">Nombres</label><input class="form-control" id="nombres" required></div>
+                    <div class="col-md-6"><label class="form-label">Apellidos</label><input class="form-control" id="apellidos" required></div>
+                    <div class="col-md-6"><label class="form-label">Teléfono</label><input class="form-control" id="telefono" required></div>
+                    <div class="col-md-6"><label class="form-label">Correo / usuario</label><input class="form-control" id="correo" type="email" required></div>
+                    <div class="col-md-4"><label class="form-label">Placa</label><input class="form-control" id="placa" required></div>
+                    <div class="col-md-4"><label class="form-label">Licencia</label><input class="form-control" id="licencia"></div>
+                    <div class="col-md-4"><label class="form-label">Vehículo</label><input class="form-control" id="vehiculo" placeholder="Minivan, combi..."></div>
+                    <div class="col-md-6"><label class="form-label">Estado</label><select class="form-select" id="estado"><option>Activo</option><option>Suspendido</option></select></div>
+                    <div class="col-md-6"><label class="form-label">Contraseña inicial</label><input class="form-control" id="password" placeholder="Solo para nuevo chofer"></div>
+                </div>
+            </div>
+            <div class="modal-footer border-0 pt-0">
+                <button type="button" class="btn-soft" data-bs-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn-main"><i class="fa-solid fa-floppy-disk"></i>Guardar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="toast-admin" id="toast"></div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-document.getElementById("f-chofer").addEventListener("submit", function(e) {
+const API = 'http://127.0.0.1:5000';
+let choferes = [];
+let modal;
+function toast(msg) { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'), 3200); }
+function badgeEstado(estado) { const key = String(estado || '').toLowerCase(); return `<span class="badge-soft ${key === 'activo' ? 'badge-activo' : 'badge-suspendido'}">${estado || 'Sin estado'}</span>`; }
+function filaVacia(msg) { return `<tr><td colspan="7"><div class="empty-state"><i class="fa-solid fa-user-slash"></i>${msg}</div></td></tr>`; }
+async function cargarChoferes() {
+    try {
+        const res = await fetch(`${API}/api/admin/choferes`);
+        const data = await res.json();
+        if (data.status !== 'success') throw new Error(data.mensaje);
+        choferes = data.datos || [];
+        const tbody = document.getElementById('tablaChoferes');
+        if (!choferes.length) { tbody.innerHTML = filaVacia('No hay choferes registrados todavía.'); return; }
+        tbody.innerHTML = choferes.map(c => `
+            <tr>
+                <td class="fw-bold">#${c.id}</td>
+                <td><div class="fw-bold">${c.nombres} ${c.apellidos}</div><div class="text-muted small">${c.vehiculo || 'Vehículo no indicado'}</div></td>
+                <td><div>${c.telefono || '-'}</div><div class="text-muted small">${c.correo || '-'}</div></td>
+                <td class="fw-bold">${c.placa || '-'}</td>
+                <td>${c.licencia || '-'}</td>
+                <td>${badgeEstado(c.estado)}</td>
+                <td>
+                    <div class="action-row">
+                        <button class="btn-soft" onclick="abrirEditar(${c.id})"><i class="fa-solid fa-pen"></i>Editar</button>
+                        <button class="${c.estado === 'Activo' ? 'btn-warning-soft' : 'btn-success-soft'}" onclick="cambiarEstado(${c.id}, '${c.estado === 'Activo' ? 'Suspendido' : 'Activo'}')">
+                            <i class="fa-solid ${c.estado === 'Activo' ? 'fa-ban' : 'fa-check'}"></i>${c.estado === 'Activo' ? 'Suspender' : 'Activar'}
+                        </button>
+                        <button class="btn-danger-soft" onclick="eliminarChofer(${c.id})"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                </td>
+            </tr>`).join('');
+    } catch (e) { toast('Error: ' + e.message); }
+}
+function abrirCrear() {
+    document.getElementById('modalTitulo').textContent = 'Nuevo chofer';
+    document.getElementById('formChofer').reset();
+    document.getElementById('choferId').value = '';
+    document.getElementById('password').placeholder = 'Contraseña inicial, por defecto 123456';
+}
+function abrirEditar(id) {
+    const c = choferes.find(x => Number(x.id) === Number(id));
+    if (!c) return;
+    document.getElementById('modalTitulo').textContent = 'Editar chofer #' + id;
+    document.getElementById('choferId').value = c.id;
+    document.getElementById('nombres').value = c.nombres || '';
+    document.getElementById('apellidos').value = c.apellidos || '';
+    document.getElementById('telefono').value = c.telefono || '';
+    document.getElementById('correo').value = c.correo || '';
+    document.getElementById('placa').value = c.placa || '';
+    document.getElementById('licencia').value = c.licencia || '';
+    document.getElementById('vehiculo').value = c.vehiculo || '';
+    document.getElementById('estado').value = c.estado || 'Activo';
+    document.getElementById('password').value = '';
+    document.getElementById('password').placeholder = 'No se cambia desde admin al editar';
+    modal.show();
+}
+async function cambiarEstado(id, estado) {
+    const res = await fetch(`${API}/api/admin/choferes/${id}`, { method: 'PUT', headers: {'Content-Type':'application/json'}, body: JSON.stringify({id, estado}) });
+    const data = await res.json();
+    toast(data.mensaje);
+    cargarChoferes();
+}
+async function eliminarChofer(id) {
+    if (!confirm('¿Eliminar este chofer del padrón?')) return;
+    const res = await fetch(`${API}/api/admin/choferes/${id}`, { method: 'DELETE' });
+    const data = await res.json();
+    toast(data.mensaje);
+    cargarChoferes();
+}
+document.getElementById('formChofer').addEventListener('submit', async e => {
     e.preventDefault();
-    fetch('http://127.0.0.1:5000/api/admin/choferes', {
-        method: 'PUT',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({ id: document.getElementById("cId").value, estado: document.getElementById("cEstado").value })
-    }).then(res => res.json()).then(data => alert(data.mensaje));
+    const id = document.getElementById('choferId').value;
+    const payload = {
+        nombres: document.getElementById('nombres').value.trim(),
+        apellidos: document.getElementById('apellidos').value.trim(),
+        telefono: document.getElementById('telefono').value.trim(),
+        correo: document.getElementById('correo').value.trim(),
+        placa: document.getElementById('placa').value.trim(),
+        licencia: document.getElementById('licencia').value.trim(),
+        vehiculo: document.getElementById('vehiculo').value.trim(),
+        estado: document.getElementById('estado').value,
+        password: document.getElementById('password').value.trim()
+    };
+    const url = id ? `${API}/api/admin/choferes/${id}` : `${API}/api/admin/choferes`;
+    const method = id ? 'PUT' : 'POST';
+    const res = await fetch(url, { method, headers: {'Content-Type':'application/json'}, body: JSON.stringify(payload) });
+    const data = await res.json();
+    toast(data.mensaje);
+    if (data.status === 'success') { modal.hide(); cargarChoferes(); }
 });
+document.addEventListener('DOMContentLoaded', () => { modal = new bootstrap.Modal(document.getElementById('modalChofer')); cargarChoferes(); });
 </script>
 </body>
 </html>

@@ -3,117 +3,136 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HIJOS DE CRISTO REY - Menú Principal</title>
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Menú de Usuario - Hijos de Cristo Rey</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/admin.css">
 </head>
-
-<!-- El mismo fondo exacto de index.html y registro.html -->
-<body style="background: radial-gradient(circle at top right, #f8f9fa 0%, #e9ecef 100%); font-family: 'Poppins', sans-serif; min-height: 100vh;" class="d-flex flex-column justify-content-between">
-
-    <!-- CONTENEDOR PRINCIPAL -->
-    <main class="container my-auto py-5">
-        
-        <!-- ENCABEZADO DEL MENÚ -->
-        <div class="text-center mb-5">
-            <div class="fs-1 mb-2" style="color: #475569;"><i class="fa-solid fa-layer-group"></i></div>
-            <h1 class="fw-bold h2 mb-1" style="color: #1e293b;">Menu Principal</h1>
-            <p class="text-muted small text-uppercase tracking-wider mb-0" style="letter-spacing: 2px;">HIJOS DE CRISTO REY</p>
+<body class="admin-body">
+<div class="admin-shell">
+    <aside class="sidebar">
+        <div class="brand-box">
+            <div class="brand-icon"><i class="fa-solid fa-van-shuttle"></i></div>
+            <div>
+                <div class="brand-title">Hijos de<br>Cristo Rey</div>
+                <div class="brand-subtitle">Panel de usuario</div>
+            </div>
         </div>
 
-        <!-- REJILLA DE OPCIONES (6 TARJETAS CORREGIDAS) -->
-        <div class="row g-4 row-cols-1 row-cols-sm-2 row-cols-md-3 justify-content-center">
-            
-            <!-- 1. Padrones Choferes -->
-            <div class="col">
-                <div class="card h-100 shadow-sm p-4 text-center bg-white border border-light text-decoration-none" 
-                     style="border-radius: 14px; cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease;"
-                     onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 1rem 3rem rgba(0,0,0,.175)'" 
-                     onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 .125rem .25rem rgba(0,0,0,.075)'"
-                     onclick="window.location.href='choferes.html'">
-                    <div class="fs-1 mb-3" style="color: #3b82f6;"><i class="fa-solid fa-id-card"></i></div>
-                    <h2 class="h6 fw-bold mb-1" style="color: #1e293b;">Padrones Choferes</h2>
-                    <p class="text-muted small mb-0">Información de conductores</p>
-                </div>
-            </div>
+        <nav class="nav-admin">
+            <a href="menu.html" class="active"><i class="fa-solid fa-house"></i>Inicio</a>
+            <a href="choferes.html"><i class="fa-solid fa-id-card"></i>Choferes</a>
+            <a href="Rutas.html"><i class="fa-solid fa-map-location-dot"></i>Rutas</a>
+            <a href="tarifas.html"><i class="fa-solid fa-wallet"></i>Tarifas</a>
+            <a href="novedades.html"><i class="fa-solid fa-bullhorn"></i>Novedades</a>
+            <a href="quejas.html"><i class="fa-solid fa-circle-question"></i>Quejas / Ayuda</a>
+            <a href="carreraspriv.html"><i class="fa-solid fa-car-side"></i>Carreras privadas</a>
+        </nav>
 
-            <!-- 2. Rutas -->
-            <div class="col">
-                <div class="card h-100 shadow-sm p-4 text-center bg-white border border-light text-decoration-none" 
-                     style="border-radius: 14px; cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease;"
-                     onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 1rem 3rem rgba(0,0,0,.175)'" 
-                     onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 .125rem .25rem rgba(0,0,0,.075)'"
-                     onclick="window.location.href='rutas.html'">
-                    <div class="fs-1 mb-3" style="color: #ef4444;"><i class="fa-solid fa-map-location-dot"></i></div>
-                    <h2 class="h6 fw-bold mb-1" style="color: #1e293b;">Rutas</h2>
-                    <p class="text-muted small mb-0">Destinos disponibles</p>
-                </div>
-            </div>
-
-            <!-- 3. Tarifas -->
-            <div class="col">
-                <div class="card h-100 shadow-sm p-4 text-center bg-white border border-light text-decoration-none" 
-                     style="border-radius: 14px; cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease;"
-                     onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 1rem 3rem rgba(0,0,0,.175)'" 
-                     onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 .125rem .25rem rgba(0,0,0,.075)'"
-                     onclick="window.location.href='tarifas.html'">
-                    <div class="fs-1 mb-3" style="color: #10b981;"><i class="fa-solid fa-wallet"></i></div>
-                    <h2 class="h6 fw-bold mb-1" style="color: #1e293b;">Tarifas</h2>
-                    <p class="text-muted small mb-0">Precios de pasajes</p>
-                </div>
-            </div>
-
-            <!-- 4. Novedades -->
-            <div class="col">
-                <div class="card h-100 shadow-sm p-4 text-center bg-white border border-light text-decoration-none" 
-                     style="border-radius: 14px; cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease;"
-                     onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 1rem 3rem rgba(0,0,0,.175)'" 
-                     onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 .125rem .25rem rgba(0,0,0,.075)'"
-                     onclick="window.location.href='novedades.html'">
-                    <div class="fs-1 mb-3" style="color: #f59e0b;"><i class="fa-solid fa-bullhorn"></i></div>
-                    <h2 class="h6 fw-bold mb-1" style="color: #1e293b;">Novedades</h2>
-                    <p class="text-muted small mb-0">Noticias importantes</p>
-                </div>
-            </div>
-
-            <!-- 5. Carreras Privadas -->
-            <div class="col">
-                <div class="card h-100 shadow-sm p-4 text-center bg-white border border-light text-decoration-none" 
-                     style="border-radius: 14px; cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease;"
-                     onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 1rem 3rem rgba(0,0,0,.175)'" 
-                     onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 .125rem .25rem rgba(0,0,0,.075)'"
-                     onclick="window.location.href='carreraspriv.html'">
-                    <div class="fs-1 mb-3" style="color: #6366f1;"><i class="fa-solid fa-car-side"></i></div>
-                    <h2 class="h6 fw-bold mb-1" style="color: #1e293b;">Carreras Privadas</h2>
-                    <p class="text-muted small mb-0">Servicios especiales</p>
-                </div>
-            </div>
-
-            <!-- 6. Quejas / Ayuda -->
-            <div class="col">
-                <div class="card h-100 shadow-sm p-4 text-center bg-white border border-light text-decoration-none" 
-                     style="border-radius: 14px; cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease;"
-                     onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 1rem 3rem rgba(0,0,0,.175)'" 
-                     onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 .125rem .25rem rgba(0,0,0,.075)'"
-                     onclick="window.location.href='quejas.html'">
-                    <div class="fs-1 mb-3" style="color: #64748b;"><i class="fa-solid fa-circle-question"></i></div>
-                    <h2 class="h6 fw-bold mb-1" style="color: #1e293b;">Quejas / Ayuda</h2>
-                    <p class="text-muted small mb-0">Soporte al cliente</p>
-                </div>
-            </div>
-
+        <div class="sidebar-footer">
+            <a class="logout-btn" href="index.html" onclick="cerrarSesion()"><i class="fa-solid fa-right-from-bracket"></i>Cerrar sesión</a>
         </div>
+    </aside>
 
-        <!-- BOTÓN CERRAR SESIÓN / VOLVER (REEMPLAZA AL AMARILLO CHILLÓN) -->
-        <div class="text-center mt-5">
-            <a href="index.html" class="btn btn-outline-dark px-4 fw-medium shadow-sm" style="border-radius: 8px;">
-                <i class="fa-solid fa-right-from-bracket me-2"></i>Cerrar Sesión
+    <main class="admin-main">
+        <section class="topbar">
+            <div>
+                <div class="page-eyebrow">Panel de usuario</div>
+                <h1 class="page-title">Menú principal</h1>
+                <p class="page-desc" id="saludoUsuario">Consulta rutas, tarifas, choferes, novedades, quejas y carreras privadas desde un solo lugar.</p>
+            </div>
+            <div class="action-row">
+                <a class="btn-soft" href="conductor_menu.html"><i class="fa-solid fa-car"></i>Portal conductor</a>
+                <a class="btn-main" href="admin_menu.html" id="btnAdmin" style="display:none;"><i class="fa-solid fa-user-shield"></i>Panel admin</a>
+            </div>
+        </section>
+
+        <section class="stat-grid">
+            <div class="stat-card">
+                <i class="fa-solid fa-id-card"></i>
+                <div class="stat-label">Choferes</div>
+                <div class="stat-value">Ver</div>
+            </div>
+            <div class="stat-card">
+                <i class="fa-solid fa-map-location-dot"></i>
+                <div class="stat-label">Rutas</div>
+                <div class="stat-value">Ver</div>
+            </div>
+            <div class="stat-card">
+                <i class="fa-solid fa-wallet"></i>
+                <div class="stat-label">Tarifas</div>
+                <div class="stat-value">Ver</div>
+            </div>
+            <div class="stat-card">
+                <i class="fa-solid fa-car-side"></i>
+                <div class="stat-label">Carreras privadas</div>
+                <div class="stat-value">Pedir</div>
+            </div>
+            <div class="stat-card">
+                <i class="fa-solid fa-bullhorn"></i>
+                <div class="stat-label">Novedades</div>
+                <div class="stat-value">Ver</div>
+            </div>
+        </section>
+
+        <section class="module-grid">
+            <a class="module-card" href="choferes.html">
+                <div class="module-icon"><i class="fa-solid fa-id-card"></i></div>
+                <div class="module-title">Padrón de choferes</div>
+                <p class="module-desc">Consulta información de conductores activos y sus datos principales.</p>
             </a>
-        </div>
 
+            <a class="module-card" href="Rutas.html">
+                <div class="module-icon"><i class="fa-solid fa-map-location-dot"></i></div>
+                <div class="module-title">Rutas</div>
+                <p class="module-desc">Revisa los destinos disponibles y la información de recorrido.</p>
+            </a>
+
+            <a class="module-card" href="tarifas.html">
+                <div class="module-icon"><i class="fa-solid fa-wallet"></i></div>
+                <div class="module-title">Tarifas</div>
+                <p class="module-desc">Visualiza precios de pasajes y montos actualizados.</p>
+            </a>
+
+            <a class="module-card" href="novedades.html">
+                <div class="module-icon"><i class="fa-solid fa-bullhorn"></i></div>
+                <div class="module-title">Novedades</div>
+                <p class="module-desc">Lee noticias, comunicados y avisos importantes del servicio.</p>
+            </a>
+
+            <a class="module-card" href="carreraspriv.html">
+                <div class="module-icon"><i class="fa-solid fa-car-side"></i></div>
+                <div class="module-title">Carreras privadas</div>
+                <p class="module-desc">Solicita servicios especiales indicando origen, destino y monto.</p>
+            </a>
+
+            <a class="module-card" href="quejas.html">
+                <div class="module-icon"><i class="fa-solid fa-circle-question"></i></div>
+                <div class="module-title">Quejas / Ayuda</div>
+                <p class="module-desc">Envía reportes, dudas o solicitudes de atención al cliente.</p>
+            </a>
+        </section>
     </main>
+</div>
 
+<script>
+function cerrarSesion() {
+    localStorage.removeItem('session_id');
+    localStorage.removeItem('session_tipo');
+    localStorage.removeItem('session_nombre');
+}
+
+const nombre = localStorage.getItem('session_nombre') || '';
+const tipo = localStorage.getItem('session_tipo') || '';
+
+if (nombre) {
+    document.getElementById('saludoUsuario').textContent = `Hola, ${nombre}. Consulta rutas, tarifas, choferes, novedades, quejas y carreras privadas desde un solo lugar.`;
+}
+
+if (tipo === 'admin') {
+    document.getElementById('btnAdmin').style.display = 'inline-flex';
+}
+</script>
 </body>
 </html>
